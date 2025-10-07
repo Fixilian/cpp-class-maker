@@ -3,17 +3,12 @@ import * as vscode from 'vscode';
 export type Callback = (args: any[]) => any;
 
 export const commandRegistry = new Map<string, Callback>([
-    ['cpp-class-maker.initProject', initProjectCommand], 
     ['cpp-class-maker.newClass', newClassCommand], 
     ['cpp-class-maker.newClassNoTest', newClassNoTestCommand], 
     ['cpp-class-maker.newHeader', newHeaderCommand], 
     ['cpp-class-maker.newTemplateClass', newTemplateClassCommand], 
     ['cpp-class-maker.newTemplateClassNoTest', newTemplateClassNoTestCommand], 
 ]);
-
-function initProjectCommand () { 
-    vscode.window.showInformationMessage('Init Project!');
-};
 
 function newClassCommand () { 
     vscode.window.showInformationMessage('New Class!');

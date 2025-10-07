@@ -15,10 +15,6 @@
   "contributes": {
     "commands": [
       {
-        "command": "cpp-class-maker.initProject",
-        "title": "Init project"
-      },
-      {
         "command": "cpp-class-maker.newClass",
         "title": "New Class"
       },
