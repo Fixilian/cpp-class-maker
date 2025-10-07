@@ -6,3 +6,6 @@ node_modules/
 
 # Extension debug 
 debug/
+
+# Extension build 
+dist/

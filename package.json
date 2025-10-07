@@ -11,14 +11,69 @@
   ],
   "activationEvents": [],
   "main": "./dist/extension.js",
+
   "contributes": {
     "commands": [
       {
-        "command": "cpp-class-maker.helloWorld",
-        "title": "Hello World"
+        "command": "cpp-class-maker.initProject",
+        "title": "Init project"
+      },
+      {
+        "command": "cpp-class-maker.newClass",
+        "title": "New Class"
+      },
+      {
+        "command": "cpp-class-maker.newClassNoTest",
+        "title": "New Class w/o test"
+      },
+      {
+        "command": "cpp-class-maker.newHeader",
+        "title": "New Header"
+      },
+      {
+        "command": "cpp-class-maker.newTemplateClass",
+        "title": "New Template Class"
+      },
+      {
+        "command": "cpp-class-maker.newTemplateClassNoTest",
+        "title": "New Template Class w/o test"
+      }
+    ],
+
+    "menus": {
+			"explorer/context": [
+				{
+          "group": "navigation",
+					"submenu": "cpp-class-maker.make"
+				}
+			],
+      "cpp-class-maker.make" : [
+        {
+					"command": "cpp-class-maker.newClass"
+        },
+        {
+					"command": "cpp-class-maker.newClassNoTest"
+        },
+        {
+					"command": "cpp-class-maker.newHeader"
+        },
+        {
+					"command": "cpp-class-maker.newTemplateClass"
+        },
+        {
+					"command": "cpp-class-maker.newTemplateClassNoTest"
+        }
+      ]
+		},
+
+    "submenus": [
+      {
+        "id": "cpp-class-maker.make",
+        "label": "New Class"
       }
     ]
   },
+
   "scripts": {
     "vscode:prepublish": "npm run package",
     "compile": "npm run check-types && npm run lint && node esbuild.js",
@@ -33,6 +88,7 @@
     "lint": "eslint src",
     "test": "vscode-test"
   },
+  
   "devDependencies": {
     "@types/vscode": "^1.104.0",
     "@types/mocha": "^10.0.10",
