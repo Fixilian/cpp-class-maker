@@ -1,7 +1,7 @@
 # Node.js
 node_modules/
 
-# VS Code Extension specific
+# VS Code specific
 .vscode/
 
 # Extension debug 
@@ -9,3 +9,7 @@ debug/
 
 # Extension build 
 dist/
+out/
+
+# Extension test 
+.vscode-test/
