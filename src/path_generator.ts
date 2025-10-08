@@ -89,7 +89,7 @@ export class PathGenerator {
         const isSrcDir = isSubDirectory(this.srcPath, dstPath);
         const isIncludeDir = isSubDirectory(this.includePath, dstPath);
         if (isSrcDir || isIncludeDir) {
-            var tail = '';
+            let tail = '';
             if (isIncludeDir) {
                 tail = path.relative(this.includePath, dstPath);
             } else {

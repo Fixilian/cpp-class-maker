@@ -3,7 +3,6 @@ import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
 import { Workspace } from '../workspace';
-import { unwatchFile } from 'fs';
 
 suite("Workspace Test Suite", () => {
     const workspacePath = path.join(process.cwd(), 'test-workspace');
