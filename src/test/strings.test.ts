@@ -72,16 +72,29 @@ suite("strings Module Test Suite", () => {
         tester.runTestCases(strings.isAlpha, testCases);
     });
 
-    test("splitIdentifier", () => {
-        const testCases: [string, string[]][] = [
-            ["camelCase", ["camel", "Case"]],
-            ["PascalCase", ["Pascal", "Case"]],
-            ["snake_case", ["snake", "case"]],
-            ["XMLRequest", ["XML", "Request"]],
-            ["Vector2D", ["Vector", "2D"]],
-            ["Render3DView", ["Render", "3D", "View"]],
-            ["Int32Buffer", ["Int32", "Buffer"]],
+    test("capitalizeFirst", () => {
+        const testCases: [string, string][] = [
+            ["b", "B"],
+            ["Y", "Y"],
+            ["UPPER", "UPPER"],
+            ["Word", "Word"],
+            ["lower", "Lower"],
+            ["0", "0"],
+            ["123", "123"],
         ];
-        tester.runTestCases(strings.splitIdentifier, testCases);
+        tester.runTestCases(strings.capitalizeFirst, testCases);
+    });
+
+    test("lowercaseFirst", () => {
+        const testCases: [string, string][] = [
+            ["b", "b"],
+            ["Y", "y"],
+            ["UPPER", "uPPER"],
+            ["Word", "word"],
+            ["lower", "lower"],
+            ["0", "0"],
+            ["123", "123"],
+        ];
+        tester.runTestCases(strings.lowercaseFirst, testCases);
     });
 });

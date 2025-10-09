@@ -45,60 +45,21 @@ export function isAlpha(ch: string): boolean {
 }
 
 /**
- * Splits an identifier (camelCase, PascalCase, snake_case) into words.
- * Separates patterns like "2D", "3D" into a new word
+ * Uppercases the first character of a string and leaves the rest unchanged.
  *
- * Examples:
- *  - "camelCase" -> ["camel", "Case"]
- *  - "PascalCase" -> ["Pascal", "Case"]
- *  - "snake_case" -> ["snake", "case"]
- *  - "XMLRequest" -> ["XML", "Request"]
- *  - "Vector2D" -> ["Vector", "2D"]
- *  - "Render3DView" -> ["Render", "3D", "View"]
+ * @param str not empty string.
+ * @returns string with the first character capitalized.
  */
-export function splitIdentifier(name: string): string[] {
-    const result: string[] = [];
-    let current = "";
+export function capitalizeFirst(str: string): string {
+    return str[0].toUpperCase() + str.slice(1);
+}
 
-    for (let i = 0; i < name.length; i++) {
-        const ch = name[i];
-        const prev = name[i - 1];
-        const next = name[i + 1];
-        const next2 = name[i + 2];
-
-        // Skip underscores and push the current token
-        if (ch === "_") {
-            if (current) {
-                result.push(current);
-                current = "";
-            }
-            continue;
-        }
-
-        let newToken = false;
-        // 1. Acronym boundary: ABCd -> AB / Cd
-        if (isUpper(prev) && isUpper(ch) && isLower(next)) {
-            newToken = true;
-        }
-        // 2. 2D or 3D case
-        if (isLower(prev) && isDigit(ch) && isUpper(next) && (!next2 || isAlpha(next2))) {
-            newToken = true;
-        }
-        // 3. camelCase / PascalCase boundary
-        if ((isLower(prev) && isUpper(ch)) || 
-            (isDigit(prev) && isUpper(ch) && !isDigit(current))) {
-            newToken = true;
-        }
-
-        if (newToken && current) {
-            result.push(current);
-            current = "";
-        }
-        current += ch;
-    }
-
-    if (current) {
-        result.push(current);
-    }
-    return result;
+/**
+ * Lowercases the first character of a string and leaves the rest unchanged.
+ *
+ * @param str not empty string.
+ * @returns string with the first character lowercase.
+ */
+export function lowercaseFirst(str: string): string {
+    return str[0].toLowerCase() + str.slice(1);
 }
