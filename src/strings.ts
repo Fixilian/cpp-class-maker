@@ -63,3 +63,26 @@ export function capitalizeFirst(str: string): string {
 export function lowercaseFirst(str: string): string {
     return str[0].toLowerCase() + str.slice(1);
 }
+
+/**
+ * Returns the 1-based line and column position for a given character offset in text.
+ * 
+ * @param text full text to analyze.
+ * @param offset zero-based character index within the text.
+ * @returns position in form {line, column}.
+ */
+export function getPosition(text: string, offset: number): { line: number; column: number } {
+    // Count lines up to the offset
+    const str = text.slice(0, offset);
+    let line = 1;
+    let column = 1;
+    for (let i = 0; i < str.length; i += 1) {
+        if (str[i] === "\n") {
+            line += 1;
+            column = 1;
+            continue;
+        }   
+        column += 1;
+    }
+    return {line: line, column: column};
+}

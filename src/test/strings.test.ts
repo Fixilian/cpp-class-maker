@@ -1,3 +1,4 @@
+import * as assert from 'assert';
 import * as strings from '../strings';
 import * as tester from './tester';
 
@@ -96,5 +97,26 @@ suite("strings Module Test Suite", () => {
             ["123", "123"],
         ];
         tester.runTestCases(strings.lowercaseFirst, testCases);
+    });
+
+    test("getPosition", () => {
+        const text = "0123\n5678\n9";
+
+        let line = 1;
+        let column = 1;
+        for (let i = 0; i < text.length; i += 1) {
+            if (text[i] === "\n") {
+                line += 1;
+                column = 1;
+                continue;
+            }   
+            const expected = {
+                line: line,
+                column: column
+            };
+            const actual = strings.getPosition(text, i);
+            assert.deepStrictEqual(actual, expected);
+            column += 1;
+        }
     });
 });
