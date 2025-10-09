@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import * as strings from '../strings';
 import * as tester from './tester';
 
-suite("strings Module Test Suite", () => {
+suite("Strings Module Test Suite", () => {
 
     test("isUpper", () => {
         const testCases: [string | undefined, boolean][] = [

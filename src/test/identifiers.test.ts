@@ -2,7 +2,7 @@ import { asIdentifier, Identifier } from '../identifier';
 import * as identifiers from '../identifiers';
 import * as tester from './tester';
 
-suite("identifiers Module Test Suite", () => {
+suite("Identifiers Module Test Suite", () => {
 
     test("toCamelCase", () => {
         const testCases: [Identifier, string][] = [
