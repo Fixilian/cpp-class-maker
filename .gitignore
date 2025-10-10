@@ -1,9 +1,6 @@
 # Node.js
 node_modules/
 
-# VS Code specific
-.vscode/
-
 # Extension debug 
 debug/
 
