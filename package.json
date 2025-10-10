@@ -1,6 +1,6 @@
 {
   "name": "cpp-class-maker",
-  "displayName": "Cpp class maker",
+  "displayName": "C/C++ Class Maker",
   "description": "Cpp class maker",
   "version": "0.0.1",
   "engines": {
@@ -15,37 +15,37 @@
   "contributes": {
     "commands": [
       {
-        "command": "cpp-class-maker.newClass",
+        "command": "cppClassMaker.newClass",
         "title": "New Class",
         "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
       },
       {
-        "command": "cpp-class-maker.newClassNoTest",
+        "command": "cppClassMaker.newClassNoTest",
         "title": "New Class w/o test",
         "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
       },
       {
-        "command": "cpp-class-maker.newHeader",
+        "command": "cppClassMaker.newHeader",
         "title": "New Header",
         "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
       },
       {
-        "command": "cpp-class-maker.newTemplateClass",
+        "command": "cppClassMaker.newTemplateClass",
         "title": "New Template Class",
         "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
       },
       {
-        "command": "cpp-class-maker.newTemplateClassNoTest",
+        "command": "cppClassMaker.newTemplateClassNoTest",
         "title": "New Template Class w/o test",
         "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
       },
       {
-        "command": "cpp-class-maker.newCStruct",
+        "command": "cppClassMaker.newCStruct",
         "title": "New C Struct",
         "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
       },
       {
-        "command": "cpp-class-maker.newCHeader",
+        "command": "cppClassMaker.newCHeader",
         "title": "New C Header",
         "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
       }
@@ -55,37 +55,37 @@
       "explorer/context": [
         {
           "group": "navigation",
-          "submenu": "cpp-class-maker.make",
+          "submenu": "cppClassMaker.make",
           "when": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
         }
       ],
-      "cpp-class-maker.make": [
+      "cppClassMaker.make": [
         {
-          "command": "cpp-class-maker.newClass",
+          "command": "cppClassMaker.newClass",
           "group": "navigation"
         },
         {
-          "command": "cpp-class-maker.newClassNoTest",
+          "command": "cppClassMaker.newClassNoTest",
           "group": "1_test"
         },
         {
-          "command": "cpp-class-maker.newHeader",
+          "command": "cppClassMaker.newHeader",
           "group": "navigation"
         },
         {
-          "command": "cpp-class-maker.newTemplateClass",
+          "command": "cppClassMaker.newTemplateClass",
           "group": "navigation"
         },
         {
-          "command": "cpp-class-maker.newTemplateClassNoTest",
+          "command": "cppClassMaker.newTemplateClassNoTest",
           "group": "1_test"
         },
         {
-          "command": "cpp-class-maker.newCStruct",
+          "command": "cppClassMaker.newCStruct",
           "group": "2_c_files"
         },
         {
-          "command": "cpp-class-maker.newCHeader",
+          "command": "cppClassMaker.newCHeader",
           "group": "2_c_files"
         }
       ]
@@ -93,8 +93,180 @@
 
     "submenus": [
       {
-        "id": "cpp-class-maker.make",
+        "id": "cppClassMaker.make",
         "label": "New Class"
+      }
+    ],
+
+    "configuration": [
+      {
+        "title": "C++",
+        "id": "cppClassMaker.cpp",
+        "properties": {
+          "cppClassMaker.cpp.editCmakeFiles": {
+            "order": 0,
+            "type": "boolean",
+            "default": true,
+            "description": "Allow to add new source files to the corresponding CMakeFiles.txt."
+          },
+          "cppClassMaker.cpp.fileNameCase": {
+            "order": 1,
+            "type": "string",
+            "enum": ["PascalCase", "camelCase", "snake_case"],
+            "default": "PascalCase",
+            "description": "Determines the case of all file names."
+          },
+          "cppClassMaker.cpp.namespace": {
+            "order": 2,
+            "type": "string",
+            "default": "mynamespace",
+            "description": "Namespace with which files will be created."
+          },
+          "cppClassMaker.cpp.headerFileExtension": {
+            "order": 3,
+            "type": "string",
+            "default": ".hpp",
+            "description": "Extension with which header files will be created."
+          },
+          "cppClassMaker.cpp.sourceFileExtension": {
+            "order": 4,
+            "type": "string",
+            "default": ".cpp",
+            "description": "Extension with which source files will be created."
+          },
+          "cppClassMaker.cpp.includeDirectoryPath": {
+            "order": 5,
+            "type": "string",
+            "default": "include",
+            "description": "Relative path from the workspace directory to the include directory."
+          },
+          "cppClassMaker.cpp.sourceDirectoryPath": {
+            "order": 6,
+            "type": "string",
+            "default": "src",
+            "description": "Relative path from the workspace directory to the source directory."
+          },
+          "cppClassMaker.cpp.testDirectoryPath": {
+            "order": 7,
+            "type": "string",
+            "default": "test",
+            "description": "Relative path from the workspace directory to the test directory."
+          },
+          "cppClassMaker.cpp.templates.includeGuard": {
+            "order": 8,
+            "type": "string",
+            "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
+            "patternErrorMessage": "Template must consist only of letters, digits, underscores, and ${var} expressions.",
+            "default": "${PATH}_${NAME_SCREAM}_H",
+            "description": "Template for include guard."
+          },
+          "cppClassMaker.cpp.templates.testFileName": {
+            "order": 9,
+            "type": "string",
+            "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
+            "patternErrorMessage": "Template must consist only of letters, digits, underscores, and ${var} expressions.",
+            "default": "${FILE_NAME}Test${CPP}",
+            "description": "Template for test file name."
+          },
+          "cppClassMaker.cpp.templates.emptyHeaderFile": {
+            "type": "string",
+            "editPresentation": "multilineText",
+            "default": "#ifndef ${guard=HEADER_GUARD}\n#define ${guard}\n\nnamespace ${namespace=NAMESPACE} {\n\n\n} // namespace ${namespace}\n\n#endif // ${guard}\n",
+            "description": "Template for empty header file."
+          },
+          "cppClassMaker.cpp.templates.classHeaderFile": {
+            "type": "string",
+            "editPresentation": "multilineText",
+            "default": "#ifndef ${guard=HEADER_GUARD}\n#define ${guard}\n\nnamespace ${namespace=NAMESPACE} {\n\nclass ${class_name=NAME} {\npublic:\n    ${class_name}();\n    ~${class_name}();\n\nprivate:\n\n};\n\n} // namespace ${namespace}\n\n#endif // ${guard}\n",
+            "description": "Template for class header file."
+          },
+          "cppClassMaker.cpp.templates.classSourceFile": {
+            "type": "string",
+            "editPresentation": "multilineText",
+            "default": "#include \"${HEADER}\"\n\nnamespace ${namespace=NAMESPACE} {\n\n\n\n} // namespace ${namespace}\n",
+            "description": "Template for class source file."
+          },
+          "cppClassMaker.cpp.templates.classTestFile": {
+            "type": "string",
+            "editPresentation": "multilineText",
+            "default": "#include <gmock/gmock.h>\n#include <gtest/gtest.h>\n\n#include <vector>\n#include <string>\n\n#include \"${HEADER_PATH}\"\n\nusing namespace ${NAMESPACE};\n\nTEST(${NAME}Test, TestCase) {\n\n}\n",
+            "description": "Template for class test file."
+          },
+          "cppClassMaker.cpp.templates.templateClassHeaderFile": {
+            "type": "string",
+            "editPresentation": "multilineText",
+            "default": "#ifndef ${guard=HEADER_GUARD}\n#define ${guard}\n\nnamespace ${namespace=NAMESPACE} {\n\ntemplate <typename T>\nclass ${class_name=NAME} {\npublic:\n    ${class_name}();\n    ~${class_name}();\n\nprivate:\n\n};\n\n} // namespace ${namespace}\n\n#endif // ${guard}\n",
+            "description": "Template for template class header file."
+          }
+        }
+      },
+      {
+        "title": "C",
+        "id": "cppClassMaker.c",
+        "properties": {
+          "cppClassMaker.c.fileNameCase": {
+            "order": 0,
+            "type": "string",
+            "enum": ["PascalCase", "camelCase", "snake_case"],
+            "default": "PascalCase",
+            "description": "Determines the case of all file names."
+          },
+          "cppClassMaker.c.headerFileExtension": {
+            "order": 1,
+            "type": "string",
+            "default": ".h",
+            "description": "Extension with which header files will be created."
+          },
+          "cppClassMaker.c.sourceFileExtension": {
+            "order": 2,
+            "type": "string",
+            "default": ".c",
+            "description": "Extension with which source files will be created."
+          },
+          "cppClassMaker.c.includeDirectoryPath": {
+            "order": 3,
+            "type": "string",
+            "default": "include",
+            "description": "Relative path from the workspace directory to the include directory."
+          },
+          "cppClassMaker.c.sourceDirectoryPath": {
+            "order": 4,
+            "type": "string",
+            "default": "src",
+            "description": "Relative path from the workspace directory to the source directory."
+          },
+          "cppClassMaker.c.testDirectoryPath": {
+            "order": 5,
+            "type": "string",
+            "default": "test",
+            "description": "Relative path from the workspace directory to the test directory."
+          },
+          "cppClassMaker.c.templates.includeGuard": {
+            "type": "string",
+            "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
+            "patternErrorMessage": "Template must consist only of letters, digits, underscores, and ${var} expressions.",
+            "default": "${PATH}_${NAME_SCREAM}_H",
+            "description": "Template for include guard."
+          },
+          "cppClassMaker.c.templates.emptyHeaderFile": {
+            "type": "string",
+            "editPresentation": "multilineText",
+            "default": "#ifndef ${guard=C_HEADER_GUARD}\n#define ${guard}\n\n\n#endif // ${guard}",
+            "description": "Template for empty header file."
+          },
+          "cppClassMaker.c.templates.structHeaderFile": {
+            "type": "string",
+            "editPresentation": "multilineText",
+            "default": "#ifndef ${guard=C_HEADER_GUARD}\n#define ${guard}\n\ntypedef struct ${class_name=NAME} {\n\n} ${class_name};\n\n\n\n#endif // ${guard}",
+            "description": "Template for struct header file."
+          },
+          "cppClassMaker.c.templates.structSourceFile": {
+            "type": "string",
+            "editPresentation": "multilineText",
+            "default": "#include \"${C_HEADER}\"\n",
+            "description": "Template for struct source file."
+          }
+        }
       }
     ]
   },
