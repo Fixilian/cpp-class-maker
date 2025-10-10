@@ -16,23 +16,38 @@
     "commands": [
       {
         "command": "cpp-class-maker.newClass",
-        "title": "New Class"
+        "title": "New Class",
+        "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
       },
       {
         "command": "cpp-class-maker.newClassNoTest",
-        "title": "New Class w/o test"
+        "title": "New Class w/o test",
+        "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
       },
       {
         "command": "cpp-class-maker.newHeader",
-        "title": "New Header"
+        "title": "New Header",
+        "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
       },
       {
         "command": "cpp-class-maker.newTemplateClass",
-        "title": "New Template Class"
+        "title": "New Template Class",
+        "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
       },
       {
         "command": "cpp-class-maker.newTemplateClassNoTest",
-        "title": "New Template Class w/o test"
+        "title": "New Template Class w/o test",
+        "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
+      },
+      {
+        "command": "cpp-class-maker.newCStruct",
+        "title": "New C Struct",
+        "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
+      },
+      {
+        "command": "cpp-class-maker.newCHeader",
+        "title": "New C Header",
+        "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
       }
     ],
 
@@ -40,24 +55,38 @@
       "explorer/context": [
         {
           "group": "navigation",
-          "submenu": "cpp-class-maker.make"
+          "submenu": "cpp-class-maker.make",
+          "when": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
         }
       ],
       "cpp-class-maker.make": [
         {
-          "command": "cpp-class-maker.newClass"
+          "command": "cpp-class-maker.newClass",
+          "group": "navigation"
         },
         {
-          "command": "cpp-class-maker.newClassNoTest"
+          "command": "cpp-class-maker.newClassNoTest",
+          "group": "1_test"
         },
         {
-          "command": "cpp-class-maker.newHeader"
+          "command": "cpp-class-maker.newHeader",
+          "group": "navigation"
         },
         {
-          "command": "cpp-class-maker.newTemplateClass"
+          "command": "cpp-class-maker.newTemplateClass",
+          "group": "navigation"
         },
         {
-          "command": "cpp-class-maker.newTemplateClassNoTest"
+          "command": "cpp-class-maker.newTemplateClassNoTest",
+          "group": "1_test"
+        },
+        {
+          "command": "cpp-class-maker.newCStruct",
+          "group": "2_c_files"
+        },
+        {
+          "command": "cpp-class-maker.newCHeader",
+          "group": "2_c_files"
         }
       ]
     },
