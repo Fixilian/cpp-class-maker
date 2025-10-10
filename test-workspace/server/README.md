@@ -1,3 +1,0 @@
-# Server
-
-Web server workspace.

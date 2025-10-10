@@ -1,10 +1,10 @@
 {
   "folders": [
     {
-      "path": "client"
+      "path": "unit_tests"
     },
     {
-      "path": "server"
+      "path": "simple_structure"
     }
   ],
   "settings": {},

@@ -5,10 +5,10 @@ import * as path from 'path';
 import { Workspace } from '../workspace';
 
 suite("Workspace Test Suite", () => {
-    const workspacePath = path.join(process.cwd(), 'test-workspace');
-    const filepath = path.join(workspacePath, 'client', 'README.md');
+    const workspacePath = path.join(process.cwd(), 'test_workspace');
+    const filepath = path.join(workspacePath, 'unit_tests', 'README.md');
     const uri = vscode.Uri.file(filepath);
-    const workspaceName = 'client';
+    const workspaceName = 'unit_tests';
 
     test("workspace correctly identifies WorkspaceFolder", () => {
         const workspace = new Workspace(uri);
@@ -19,7 +19,7 @@ suite("Workspace Test Suite", () => {
 
     test("to uri conversion", () => {
         const workspace = new Workspace(uri);
-        const file = path.join(workspacePath, 'client', 'main.cpp');
+        const file = path.join(workspacePath, 'unit_tests', 'main.cpp');
         const fileUri = workspace.toUri(file);
         const expectedUri = workspace.folder.uri.with({path: file});
 
@@ -29,7 +29,7 @@ suite("Workspace Test Suite", () => {
 
     test("workspace correctly detects existence of file", () => {
         const workspace = new Workspace(uri);
-        const notExistingFile = 'client/NotExists.txt';
+        const notExistingFile = 'unit_tests/NotExists.txt';
         const fileUri = workspace.toUri(notExistingFile);
 
         workspace.exists(fileUri).then((exists) => {

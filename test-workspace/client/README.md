@@ -1,3 +1,0 @@
-# Client
-
-Web client workspace.
