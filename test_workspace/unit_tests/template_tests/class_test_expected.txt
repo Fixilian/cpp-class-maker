@@ -1,0 +1,13 @@
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+
+#include <vector>
+#include <string>
+
+#include "base/string/StringBuilder.hpp"
+
+using namespace strings;
+
+TEST(StringBuilderTest, TestCase) {
+  
+}

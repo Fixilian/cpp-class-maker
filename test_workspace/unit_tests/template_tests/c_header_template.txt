@@ -1,0 +1,10 @@
+#ifndef ${guard=C_HEADER_GUARD}
+#define ${guard}
+
+typedef struct ${class_name=NAME} {
+
+} ${class_name};
+
+
+
+#endif // ${guard}

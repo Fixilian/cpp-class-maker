@@ -1,0 +1,17 @@
+#ifndef ${guard=HEADER_GUARD}
+#define ${guard}
+
+namespace ${namespace=NAMESPACE} {
+
+class ${class_name=NAME} {
+public:
+    ${class_name}();
+    ~${class_name}();
+
+private:
+
+};
+
+} // namespace ${namespace}
+
+#endif // ${guard}
