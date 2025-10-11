@@ -112,8 +112,8 @@
           "cppClassMaker.cpp.fileNameCase": {
             "order": 1,
             "type": "string",
-            "enum": ["PascalCase", "camelCase", "snake_case"],
-            "default": "PascalCase",
+            "enum": ["Untouched", "PascalCase", "camelCase", "snake_case"],
+            "default": "Untouched",
             "description": "Determines the case of all file names."
           },
           "cppClassMaker.cpp.namespace": {
@@ -160,8 +160,24 @@
             "default": "${PATH}_${NAME_SCREAM}_H",
             "description": "Template for include guard."
           },
-          "cppClassMaker.cpp.templates.testFileName": {
+          "cppClassMaker.cpp.templates.headerFileName": {
             "order": 9,
+            "type": "string",
+            "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
+            "patternErrorMessage": "Template must consist only of letters, digits, underscores, and ${var} expressions.",
+            "default": "${FILE_NAME}${HPP}",
+            "description": "Template for header file name."
+          },
+          "cppClassMaker.cpp.templates.sourceFileName": {
+            "order": 10,
+            "type": "string",
+            "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
+            "patternErrorMessage": "Template must consist only of letters, digits, underscores, and ${var} expressions.",
+            "default": "${FILE_NAME}${CPP}",
+            "description": "Template for source file name."
+          },
+          "cppClassMaker.cpp.templates.testFileName": {
+            "order": 11,
             "type": "string",
             "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
             "patternErrorMessage": "Template must consist only of letters, digits, underscores, and ${var} expressions.",
@@ -207,8 +223,8 @@
           "cppClassMaker.c.fileNameCase": {
             "order": 0,
             "type": "string",
-            "enum": ["PascalCase", "camelCase", "snake_case"],
-            "default": "PascalCase",
+            "enum": ["Untouched", "PascalCase", "camelCase", "snake_case"],
+            "default": "Untouched",
             "description": "Determines the case of all file names."
           },
           "cppClassMaker.c.headerFileExtension": {
@@ -236,11 +252,28 @@
             "description": "Relative path from the workspace directory to the source directory."
           },
           "cppClassMaker.c.templates.includeGuard": {
+            "order": 5,
             "type": "string",
             "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
             "patternErrorMessage": "Template must consist only of letters, digits, underscores, and ${var} expressions.",
             "default": "${PATH}_${NAME_SCREAM}_H",
             "description": "Template for include guard."
+          },
+          "cppClassMaker.c.templates.headerFileName": {
+            "order": 6,
+            "type": "string",
+            "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
+            "patternErrorMessage": "Template must consist only of letters, digits, underscores, and ${var} expressions.",
+            "default": "${FILE_NAME}${H}",
+            "description": "Template for header file name."
+          },
+          "cppClassMaker.c.templates.sourceFileName": {
+            "order": 7,
+            "type": "string",
+            "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
+            "patternErrorMessage": "Template must consist only of letters, digits, underscores, and ${var} expressions.",
+            "default": "${FILE_NAME}${C}",
+            "description": "Template for source file name."
           },
           "cppClassMaker.c.templates.emptyHeaderFile": {
             "type": "string",
