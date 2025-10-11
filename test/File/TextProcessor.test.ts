@@ -1,5 +1,5 @@
-import * as tester from './tester';
-import { TextProcessor } from '../text_processor';
+import * as tester from '../TestUtility/Tester';
+import { TextProcessor } from '../../src/File/TextProcessor';
 import { readFileSync } from 'node:fs';
 import * as path from 'path';
 

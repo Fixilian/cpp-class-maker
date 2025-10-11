@@ -1,5 +1,5 @@
-import { Identifier } from "./identifier";
-import { capitalizeFirst, isAlpha, isDigit, isLower, isUpper} from "./strings";
+import { Identifier } from "./Identifier";
+import { capitalizeFirst, isAlpha, isDigit, isLower, isUpper} from "../Utility/Strings";
 
 /**
  * Converts identifier to camelCase.

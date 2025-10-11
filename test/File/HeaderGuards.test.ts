@@ -1,5 +1,5 @@
-import * as headerGuards from '../header_guards';
-import * as tester from './tester';
+import * as headerGuards from '../../src/File/HeaderGuards';
+import * as tester from '../TestUtility/Tester';
 
 suite("Header guards Module Test Suite", () => {
 

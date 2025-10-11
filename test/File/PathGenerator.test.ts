@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 
-import { PathGenerator } from '../path_generator';
+import { PathGenerator } from '../../src/File/PathGenerator';
 
 suite("PathGenerator generate Test Suite", () => {
     const workspacePath = '/workspace';

@@ -1,5 +1,5 @@
-import { isIdentifier } from '../identifier';
-import * as tester from './tester';
+import { isIdentifier } from '../../src/Identifier/Identifier';
+import * as tester from '../TestUtility/Tester';
 
 suite("Identifier Test Suite", () => {
 

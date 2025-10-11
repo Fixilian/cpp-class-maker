@@ -1,6 +1,6 @@
-import { asIdentifier, Identifier } from '../identifier';
-import * as identifiers from '../identifiers';
-import * as tester from './tester';
+import { asIdentifier, Identifier } from '../../src/Identifier/Identifier';
+import * as identifiers from '../../src/Identifier/Identifiers';
+import * as tester from '../TestUtility/Tester';
 
 suite("Identifiers Module Test Suite", () => {
 

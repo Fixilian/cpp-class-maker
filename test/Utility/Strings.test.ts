@@ -1,6 +1,6 @@
 import * as assert from 'assert';
-import * as strings from '../strings';
-import * as tester from './tester';
+import * as strings from '../../src/Utility/Strings';
+import * as tester from '../TestUtility/Tester';
 
 suite("Strings Module Test Suite", () => {
 

@@ -1,4 +1,4 @@
-import { getPosition } from "./strings";
+import { getPosition } from "../Utility/Strings";
 
 /**
  * TextProcessor transforms text according to the following rules:
