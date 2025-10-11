@@ -235,12 +235,6 @@
             "default": "src",
             "description": "Relative path from the workspace directory to the source directory."
           },
-          "cppClassMaker.c.testDirectoryPath": {
-            "order": 5,
-            "type": "string",
-            "default": "test",
-            "description": "Relative path from the workspace directory to the test directory."
-          },
           "cppClassMaker.c.templates.includeGuard": {
             "type": "string",
             "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
