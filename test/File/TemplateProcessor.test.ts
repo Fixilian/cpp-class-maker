@@ -1,5 +1,5 @@
 import * as tester from '../TestUtility/Tester';
-import { TextProcessor } from '../../src/File/TextProcessor';
+import { TemplateProcessor } from '../../src/File/TemplateProcessor';
 import { readFileSync } from 'node:fs';
 import * as path from 'path';
 
@@ -24,7 +24,7 @@ suite("TextProcessor Test Suite", () => {
         ['HEADER_GUARD', 'BASE_STRING_STRING_BUILDER_H'], 
         ['C_HEADER_GUARD', 'BASE_STRING_STRING_BUILDER_H'], 
     ]); 
-    const processor = new TextProcessor(constants);
+    const processor = new TemplateProcessor(constants);
     const processFunc = processor.process.bind(processor);
     
     test("Process file names", () => {

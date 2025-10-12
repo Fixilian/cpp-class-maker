@@ -1,15 +1,15 @@
 import { getPosition } from "../Utility/Strings";
 
 /**
- * TextProcessor transforms text according to the following rules:
+ * TemplateProcessor transforms text according to the following rules:
  * Parses expressions of the form ${var=value}, ${var=const}, ${var}, ${const}, or ${value}.
  * Replaces each expression with its resolved value, and saves value of var.
  * - var, const and value may contain letters, digits, '_' or '-'.
  * - var, const and value cannot be empty.
  */
-export class TextProcessor {
+export class TemplateProcessor {
     /** Constant values. */
-    readonly constants: Map<string, string>;
+    private constants: Map<string, string>;
 
     /**
      * @param constants constant values.
