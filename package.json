@@ -315,6 +315,12 @@
             "editPresentation": "multilineText",
             "default": "#include \"${C_HEADER}\"\n",
             "description": "Template for struct source file."
+          },
+          "cppClassMaker.c.templates.structTestFile": {
+            "type": "string",
+            "editPresentation": "multilineText",
+            "default": "#include \"${C_HEADER}\"\n",
+            "description": "Template for struct test file."
           }
         }
       }
