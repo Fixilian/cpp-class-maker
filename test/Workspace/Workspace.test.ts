@@ -3,22 +3,24 @@ import * as assert from 'assert';
 import * as vscode from 'vscode';
 import * as path from 'path';
 import { Workspace } from '../../src/Workspace/Workspace';
+import { WorkspaceStructure } from '../../src/Workspace/WorkspaceStructure';
 
 suite("Workspace Test Suite", () => {
     const workspacePath = path.join(process.cwd(), 'test_workspace');
     const filepath = path.join(workspacePath, 'unit_tests', 'README.md');
     const uri = vscode.Uri.file(filepath);
     const workspaceName = 'unit_tests';
+    const structure = new WorkspaceStructure('include', 'src', 'test');
 
     test("workspace correctly identifies WorkspaceFolder", () => {
-        const workspace = new Workspace(uri);
+        const workspace = new Workspace(uri, structure);
         const folder = workspace.folder;
 
         assert.equal(folder.name, workspaceName);
     });
 
     test("to uri conversion", () => {
-        const workspace = new Workspace(uri);
+        const workspace = new Workspace(uri, structure);
         const file = path.join(workspacePath, 'unit_tests', 'main.cpp');
         const fileUri = workspace.toUri(file);
         const expectedUri = workspace.folder.uri.with({path: file});
@@ -28,7 +30,7 @@ suite("Workspace Test Suite", () => {
     });
 
     test("workspace correctly detects existence of file", () => {
-        const workspace = new Workspace(uri);
+        const workspace = new Workspace(uri, structure);
         const notExistingFile = 'unit_tests/NotExists.txt';
         const fileUri = workspace.toUri(notExistingFile);
 

@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { WorkspaceStructure } from './WorkspaceStructure';
 
 /**
  * Workspace represents the workspace in which changes need to be made.
@@ -7,16 +8,19 @@ export class Workspace {
     /** VS Code workspace folder. */
     readonly folder: vscode.WorkspaceFolder;
 
+    /** Directory structure of the workspace. */
+    readonly structure: WorkspaceStructure;
+
     /**
      * @param uri a URI within the workspace to uniquely identify the workspace.
      */
-    constructor(uri: vscode.Uri) {
+    constructor(uri: vscode.Uri, structure: WorkspaceStructure) {
         const folder = this.findWorkspaceFolderFromUri(uri);
         if (!folder) {
-            console.error("There is no any opened workspace");
             throw new Error("There is no workspace to create class");
         }
         this.folder = folder;
+        this.structure = structure;
     }
 
     /**
