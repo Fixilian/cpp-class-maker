@@ -45,6 +45,11 @@
         "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
       },
       {
+        "command": "cppClassMaker.newCStructNoTest",
+        "title": "New C Struct w/o test",
+        "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
+      },
+      {
         "command": "cppClassMaker.newCHeader",
         "title": "New C Header",
         "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
@@ -82,6 +87,10 @@
         },
         {
           "command": "cppClassMaker.newCStruct",
+          "group": "2_c_files"
+        },
+        {
+          "command": "cppClassMaker.newCStructNoTest",
           "group": "2_c_files"
         },
         {
@@ -251,8 +260,14 @@
             "default": "src",
             "description": "Relative path from the workspace directory to the source directory."
           },
-          "cppClassMaker.c.templates.includeGuard": {
+          "cppClassMaker.c.testDirectoryPath": {
             "order": 5,
+            "type": "string",
+            "default": "test",
+            "description": "Relative path from the workspace directory to the test directory."
+          },
+          "cppClassMaker.c.templates.includeGuard": {
+            "order": 6,
             "type": "string",
             "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
             "patternErrorMessage": "Template must consist only of letters, digits, underscores, and ${var} expressions.",
@@ -260,7 +275,7 @@
             "description": "Template for include guard."
           },
           "cppClassMaker.c.templates.headerFileName": {
-            "order": 6,
+            "order": 7,
             "type": "string",
             "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
             "patternErrorMessage": "Template must consist only of letters, digits, underscores, and ${var} expressions.",
@@ -274,6 +289,14 @@
             "patternErrorMessage": "Template must consist only of letters, digits, underscores, and ${var} expressions.",
             "default": "${FILE_NAME}${C}",
             "description": "Template for source file name."
+          },
+          "cppClassMaker.c.templates.testFileName": {
+            "order": 8,
+            "type": "string",
+            "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
+            "patternErrorMessage": "Template must consist only of letters, digits, underscores, and ${var} expressions.",
+            "default": "${FILE_NAME}_test${C}",
+            "description": "Template for test file name."
           },
           "cppClassMaker.c.templates.emptyHeaderFile": {
             "type": "string",
