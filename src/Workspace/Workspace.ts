@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { WorkspaceStructure } from './WorkspaceStructure';
+import { visitDirsUp } from '../Utility/Paths';
 
 /**
  * Workspace represents the workspace in which changes need to be made.
@@ -30,21 +31,12 @@ export class Workspace {
      * @returns workspace folder if found, or undefined if the uri is outside any workspace.
      */
     private findWorkspaceFolderFromUri(uri: vscode.Uri): vscode.WorkspaceFolder | undefined {
-        // Loop until we reach the root or find a workspace folder
-        let current = uri;
-        while (true) {
-            const folder = vscode.workspace.getWorkspaceFolder(current);
-            if (folder) {
-                return folder;
-            }
-            // Go one directory up
-            const parentPath = vscode.Uri.joinPath(current, '..');
-            // Stop if we reached the filesystem root
-            if (parentPath.fsPath === current.fsPath) {
-                return undefined;
-            }
-            current = parentPath;
-        }
+        let folder: vscode.WorkspaceFolder | undefined = undefined;
+        visitDirsUp(uri, (current) => {
+            folder = vscode.workspace.getWorkspaceFolder(current);
+            return !folder;
+        });
+        return folder;
     }
 
     /**
