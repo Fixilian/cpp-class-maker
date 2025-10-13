@@ -86,3 +86,25 @@ export function getPosition(text: string, offset: number): { line: number; colum
     }
     return {line: line, column: column};
 }
+
+/**
+ * Converts string to Uint8Array.
+ * 
+ * @param text string to convert.
+ * @returns converted string.
+ */
+export function toUint8Array(text: string): Uint8Array {
+    const encoder = new TextEncoder();
+    return encoder.encode(text);
+}
+
+/**
+ * Converts Uint8Array to string.
+ * 
+ * @param array array to convert.
+ * @returns converted string.
+ */
+export function fromUint8Array(array: Uint8Array): string {
+    const decoder = new TextDecoder("utf-8");
+    return decoder.decode(array);
+} 
