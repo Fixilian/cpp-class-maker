@@ -1,5 +1,6 @@
 import { Identifier } from "./Identifier";
 import { capitalizeFirst, isAlpha, isDigit, isLower, isUpper} from "../Utility/Strings";
+import { Case, Cases } from "../Types/Case";
 
 /**
  * Converts identifier to camelCase.
@@ -45,6 +46,22 @@ export function toSnakeCase(identifier: Identifier): string {
 export function toScreamingSnakeCase(identifier: Identifier): string {
     const words = splitIdentifier(identifier);
     return words.map(w => w.toUpperCase()).join("_");
+}
+
+/**
+ * Converts identifier to the specified case.
+ * 
+ * @param identifier identifier to convert.
+ * @param c case.
+ */
+export function convertCase(identifier: Identifier, c: Case): string {
+    switch (c) {
+    case Cases.CamelCase: return toCamelCase(identifier);
+    case Cases.PascalCase: return toPascalCase(identifier);
+    case Cases.SnakeCase: return toSnakeCase(identifier);
+    case Cases.Untouched: return identifier.name;
+    default: throw new Error(`Unknown case ${c} to convert`);
+    }
 }
 
 /**
