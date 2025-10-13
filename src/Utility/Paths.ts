@@ -19,7 +19,7 @@ export function isSubDirectory(parent: string, dir: string): boolean {
  * @param uri - The uri of the current directory being visited.
  * @returns true to continue traversal upward, or false to stop.
  */
-export type Visitor = (uri: vscode.Uri) => boolean; 
+export type Visitor = (uri: vscode.Uri) => boolean | Promise<boolean>; 
 
 /**
  * Traverses upward through parent directories starting from the given uri.
@@ -30,7 +30,34 @@ export type Visitor = (uri: vscode.Uri) => boolean;
  * @param start the starting directory uri.
  * @param visitor callback invoked for each visited directory.
  */
-export function visitDirsUp(start: vscode.Uri, visitor: Visitor) {
+export async function visitDirsUp(start: vscode.Uri, visitor: Visitor): Promise<void> {
+    // Loop until we reach the root
+    let current = start;
+    while (true) {
+        const wantContinue = await visitor(current);
+        if (!wantContinue) {
+            return;
+        }
+        // Go one directory up
+        const parentPath = vscode.Uri.joinPath(current, '..');
+        // Stop if we reached the filesystem root
+        if (parentPath.fsPath === current.fsPath) {
+            return;
+        }
+        current = parentPath;
+    }
+}
+
+/**
+ * Traverses upward through parent directories starting from the given uri.
+ * 
+ * Calls the provided visitor function for each directory (starting from start)
+ * until the callback returns false or the filesystem root is reached.
+ * 
+ * @param start the starting directory uri.
+ * @param visitor callback invoked for each visited directory.
+ */
+export async function visitDirsUpSync(start: vscode.Uri, visitor: Visitor) {
     // Loop until we reach the root
     let current = start;
     while (true) {

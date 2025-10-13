@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { WorkspaceStructure } from './WorkspaceStructure';
-import { visitDirsUp } from '../Utility/Paths';
+import { visitDirsUpSync } from '../Utility/Paths';
 
 /**
  * Workspace represents the workspace in which changes need to be made.
@@ -32,7 +32,7 @@ export class Workspace {
      */
     private findWorkspaceFolderFromUri(uri: vscode.Uri): vscode.WorkspaceFolder | undefined {
         let folder: vscode.WorkspaceFolder | undefined = undefined;
-        visitDirsUp(uri, (current) => {
+        visitDirsUpSync(uri, (current) => {
             folder = vscode.workspace.getWorkspaceFolder(current);
             return !folder;
         });

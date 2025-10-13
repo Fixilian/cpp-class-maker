@@ -20,7 +20,7 @@ suite("Paths Module Test Suite", () => {
         const subDirCount = 3;
         let counter = 0;
 
-        paths.visitDirsUp(uri, (current) => {
+        paths.visitDirsUpSync(uri, (current) => {
             const isSub = paths.isSubDirectory(workspacePath, current.path);
             if (isSub) {
                 counter += 1;
