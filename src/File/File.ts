@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { FileType } from './FileType';
+import { FileType } from '../Types/FileType';
 
 /**
  * File represents a file of type FileType.

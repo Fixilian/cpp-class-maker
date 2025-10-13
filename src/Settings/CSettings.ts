@@ -1,5 +1,5 @@
-import { FileType, FileTypes } from "../File/FileType";
-import { Case } from "../Identifier/Case";
+import { FileType, FileTypes } from "../Types/FileType";
+import { Case } from "../Types/Case";
 import { WorkspaceStructure } from "../Workspace/WorkspaceStructure";
 import { Settings } from "./Settings";
 

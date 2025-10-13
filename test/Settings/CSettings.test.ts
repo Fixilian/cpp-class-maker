@@ -2,7 +2,7 @@ import * as assert from 'assert';
 import * as asserts from '../TestUtility/Asserts';
 
 import { CSettings } from '../../src/Settings/CSettings';
-import { FileTypes } from '../../src/File/FileType';
+import { FileTypes } from '../../src/Types/FileType';
 
 suite("C Settings Test Suite", () => {
 

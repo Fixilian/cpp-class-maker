@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
-import { FileType } from '../File/FileType';
+import { FileType } from '../Types/FileType';
 import { WorkspaceStructure } from '../Workspace/WorkspaceStructure';
-import { Case, fromString } from '../Identifier/Case';
+import { Case, fromString } from '../Types/Case';
 
 /**
  * Settings is base class for any settings.

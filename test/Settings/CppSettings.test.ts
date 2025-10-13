@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import * as asserts from '../TestUtility/Asserts';
 
-import { FileTypes } from '../../src/File/FileType';
+import { FileTypes } from '../../src/Types/FileType';
 import { CppSettings } from '../../src/Settings/CppSettings';
 
 suite("Cpp Settings Test Suite", () => {
