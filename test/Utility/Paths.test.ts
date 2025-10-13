@@ -12,7 +12,7 @@ suite("Paths Module Test Suite", () => {
         assert.equal(paths.isSubDirectory('workspace', 'src'), false);
     });
 
-    test("", () => {
+    test("visitDirsUp", () => {
         const workspaceName = 'test_workspace';
         const workspacePath = path.join(process.cwd(), workspaceName);
         const dirPath = path.join(workspacePath, 'unit_tests', 'template_tests');
