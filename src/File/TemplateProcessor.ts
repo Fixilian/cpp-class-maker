@@ -105,11 +105,11 @@ export class TemplateProcessor {
 
         if (value.length === 0) {
             const { line, column } = getPosition(text, offset);
-            throw new Error(`Empty ${kind} at ${line}:${column}`);
+            throw new Error(`Empty ${kind} at ${line + 1}:${column + 1}`);
         }
         if (!identifierPattern.test(value)) {
             const { line, column } = getPosition(text, offset);
-            throw new Error(`Invalid ${kind} "${value}" at ${line}:${column}`);
+            throw new Error(`Invalid ${kind} "${value}" at ${line + 1}:${column + 1}`);
         }
     }
 }

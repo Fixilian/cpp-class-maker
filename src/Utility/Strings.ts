@@ -55,7 +55,7 @@ export function lowercaseFirst(str: string): string {
 }
 
 /**
- * Returns the 1-based line and column position for a given character offset in text.
+ * Returns the 0-based line and column position for a given character offset in text.
  * 
  * @param text full text to analyze.
  * @param offset zero-based character index within the text.
@@ -64,12 +64,12 @@ export function lowercaseFirst(str: string): string {
 export function getPosition(text: string, offset: number): { line: number; column: number } {
     // Count lines up to the offset
     const str = text.slice(0, offset);
-    let line = 1;
-    let column = 1;
+    let line = 0;
+    let column = 0;
     for (let i = 0; i < str.length; i += 1) {
         if (str[i] === "\n") {
             line += 1;
-            column = 1;
+            column = 0;
             continue;
         }   
         column += 1;

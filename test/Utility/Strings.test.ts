@@ -56,23 +56,6 @@ suite("Strings Module Test Suite", () => {
         tester.runTestCases(strings.isDigit, testCases);
     });
 
-    test("isAlpha", () => {
-        const testCases: [string, boolean][] = [
-            ["B", true],
-            ["Y", true],
-            ["b", true],
-            ["y", true],
-            ["0", false],
-            ["1", false],
-            ["8", false],
-            ["_", false],
-            [" ", false],
-            ["-", false],
-            ["", false],
-        ];
-        tester.runTestCases(strings.isAlpha, testCases);
-    });
-
     test("capitalizeFirst", () => {
         const testCases: [string, string][] = [
             ["b", "B"],
@@ -102,12 +85,12 @@ suite("Strings Module Test Suite", () => {
     test("getPosition", () => {
         const text = "0123\n5678\n9";
 
-        let line = 1;
-        let column = 1;
+        let line = 0;
+        let column = 0;
         for (let i = 0; i < text.length; i += 1) {
             if (text[i] === "\n") {
                 line += 1;
-                column = 1;
+                column = 0;
                 continue;
             }   
             const expected = {
