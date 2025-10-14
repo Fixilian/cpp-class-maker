@@ -1,0 +1,17 @@
+set(SOURCES
+    base/Allocator.cpp
+    base/BitOperations.cpp
+)
+
+add_library (libchip8 ${SOURCES})
+
+target_link_libraries(libchip8 PRIVATE
+    nlohmann_json::nlohmann_json
+)
+
+# add_executable(${CMAKE_PROJECT_NAME} main.cpp)
+add_executable(${CMAKE_PROJECT_NAME} main.cpp)
+
+target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
+    libchip8
+)
