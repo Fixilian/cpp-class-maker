@@ -1,5 +1,6 @@
 import { Identifier } from "./Identifier";
-import { capitalizeFirst, isAlpha, isDigit, isLower, isUpper} from "../Utility/Strings";
+import { capitalizeFirst, isDigit, isLower, isUpper} from "../Utility/Strings";
+import { isAlpha } from '../../src/Utility/Chars';
 import { Case, Cases } from "../Types/Case";
 
 /**

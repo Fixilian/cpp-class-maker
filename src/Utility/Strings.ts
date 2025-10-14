@@ -35,16 +35,6 @@ export function isDigit(str: string | undefined): boolean {
 }
 
 /**
- * Checks if character is a letter (upper or lower)
- * 
- * @param ch character to check (string of length 1).
- * @returns true if ch is a letter.
- */
-export function isAlpha(ch: string): boolean {
-    return ch.length === 1 && /^[A-Za-z]$/.test(ch);
-}
-
-/**
  * Uppercases the first character of a string and leaves the rest unchanged.
  *
  * @param str not empty string.
