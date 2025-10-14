@@ -16,5 +16,5 @@ export abstract class BuildSystem {
      * @param file file to be added to the build system.
      * @returns list of file edits representing the modifications to apply.
      */
-    abstract addFile(file: File): FileEdit[];
+    abstract addFile(file: File): Promise<FileEdit[]>;
 }
