@@ -6,6 +6,8 @@ import { CmakeCommand } from './CmakeCommand';
 import { File, FileEdit, FileSystem, isSourceOrTest } from '../../core';
 import { getPosition } from '../../utils/PositionUtils';
 
+export const CMAKE_FILE_NAME = 'CMakeLists.txt';
+
 /**
  * Provides integration with the CMake build system.
  */
@@ -90,7 +92,7 @@ export class CmakeBuildSystem implements BuildSystem {
         let found = false;
         const startUri = vscode.Uri.joinPath(uri, '..');
         await this.fs.visitDirsUp(startUri, async (current: vscode.Uri) => {
-            cmakeFile = vscode.Uri.joinPath(current, 'CMakeLists.txt');
+            cmakeFile = vscode.Uri.joinPath(current, CMAKE_FILE_NAME);
             const exists = await this.fs.exists(cmakeFile);
             if (exists) {
                 found = true;

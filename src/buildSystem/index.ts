@@ -1,2 +1,3 @@
+export * from './cmake/CmakeBuildSystem';
 export { BuildSystem } from './BuildSystem';
-export { CmakeBuildSystem } from './cmake/CmakeBuildSystem';
+export { BuildSystemFactory } from './BuildSystemFactory';
