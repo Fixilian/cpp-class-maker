@@ -3,29 +3,36 @@ import * as vscode from 'vscode';
 export type Callback = (args: any[]) => any;
 
 export const commandRegistry = new Map<string, Callback>([
-    ['cpp-class-maker.newClass', newClassCommand], 
-    ['cpp-class-maker.newClassNoTest', newClassNoTestCommand], 
-    ['cpp-class-maker.newHeader', newHeaderCommand], 
-    ['cpp-class-maker.newTemplateClass', newTemplateClassCommand], 
-    ['cpp-class-maker.newTemplateClassNoTest', newTemplateClassNoTestCommand], 
+    ['cppClassMaker.newClass', newClassCommand],
+    ['cppClassMaker.newClassNoTest', newClassNoTestCommand],
+    ['cppClassMaker.newHeader', newHeaderCommand],
+    ['cppClassMaker.newTemplateClass', newTemplateClassCommand],
+    ['cppClassMaker.newTemplateClassNoTest', newTemplateClassNoTestCommand],
 ]);
 
-function newClassCommand () { 
+function newClassCommand () {
     vscode.window.showInformationMessage('New Class!');
 };
 
-function newClassNoTestCommand () { 
+function newClassNoTestCommand () {
     vscode.window.showInformationMessage('New Class w/o test!');
 };
 
-function newHeaderCommand () { 
+function newHeaderCommand () {
     vscode.window.showInformationMessage('New Header!');
 };
 
-function newTemplateClassCommand () { 
+function newTemplateClassCommand () {
     vscode.window.showInformationMessage('New Template Class!');
 };
 
-function newTemplateClassNoTestCommand () { 
+function newTemplateClassNoTestCommand () {
     vscode.window.showInformationMessage('New Template Class w/o test!');
 };
+
+function getDestinationUri(args: any[]): vscode.Uri {
+    // first element is uri when command was called from context menu
+    const uri = args[0];
+    return vscode.Uri.from(uri);
+}
+
