@@ -11,7 +11,7 @@
   ],
   "activationEvents": [],
   "main": "./dist/extension.js",
-  
+
   "contributes": {
     "commands": [
       {
@@ -109,60 +109,72 @@
 
     "configuration": [
       {
+        "title": "C/C++ Class Maker",
+        "id": "cppClassMaker.main",
+        "properties": {
+          "cppClassMaker.main.AutoAddToBuildSystem": {
+            "order": 0,
+            "type": "boolean",
+            "default": false,
+            "description": "Allow to automatically register newly created files in the build system configuration."
+          },
+          "cppClassMaker.main.AutoAddToSourceControlManager": {
+            "order": 1,
+            "type": "boolean",
+            "default": false,
+            "description": "Allow to automatically add newly created or modified files to the Source Control Manager (SCM)."
+          }
+        }
+      },
+      {
         "title": "C++",
         "id": "cppClassMaker.cpp",
         "properties": {
-          "cppClassMaker.cpp.editCmakeFiles": {
-            "order": 0,
-            "type": "boolean",
-            "default": true,
-            "description": "Allow to add new source files to the corresponding CMakeFiles.txt."
-          },
           "cppClassMaker.cpp.fileNameCase": {
-            "order": 1,
+            "order": 0,
             "type": "string",
             "enum": ["Untouched", "PascalCase", "camelCase", "snake_case"],
             "default": "Untouched",
             "description": "Determines the case of all file names."
           },
           "cppClassMaker.cpp.namespace": {
-            "order": 2,
+            "order": 1,
             "type": "string",
             "default": "mynamespace",
             "description": "Namespace with which files will be created."
           },
           "cppClassMaker.cpp.headerFileExtension": {
-            "order": 3,
+            "order": 2,
             "type": "string",
             "default": ".hpp",
             "description": "Extension with which header files will be created."
           },
           "cppClassMaker.cpp.sourceFileExtension": {
-            "order": 4,
+            "order": 3,
             "type": "string",
             "default": ".cpp",
             "description": "Extension with which source files will be created."
           },
           "cppClassMaker.cpp.includeDirectoryPath": {
-            "order": 5,
+            "order": 4,
             "type": "string",
             "default": "include",
             "description": "Relative path from the workspace directory to the include directory."
           },
           "cppClassMaker.cpp.sourceDirectoryPath": {
-            "order": 6,
+            "order": 5,
             "type": "string",
             "default": "src",
             "description": "Relative path from the workspace directory to the source directory."
           },
           "cppClassMaker.cpp.testDirectoryPath": {
-            "order": 7,
+            "order": 6,
             "type": "string",
             "default": "test",
             "description": "Relative path from the workspace directory to the test directory."
           },
           "cppClassMaker.cpp.templates.includeGuard": {
-            "order": 8,
+            "order": 7,
             "type": "string",
             "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
             "patternErrorMessage": "Template must consist only of letters, digits, underscores, and ${var} expressions.",
@@ -170,7 +182,7 @@
             "description": "Template for include guard."
           },
           "cppClassMaker.cpp.templates.headerFileName": {
-            "order": 9,
+            "order": 8,
             "type": "string",
             "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
             "patternErrorMessage": "Template must consist only of letters, digits, underscores, and ${var} expressions.",
@@ -178,7 +190,7 @@
             "description": "Template for header file name."
           },
           "cppClassMaker.cpp.templates.sourceFileName": {
-            "order": 10,
+            "order": 9,
             "type": "string",
             "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
             "patternErrorMessage": "Template must consist only of letters, digits, underscores, and ${var} expressions.",
@@ -186,7 +198,7 @@
             "description": "Template for source file name."
           },
           "cppClassMaker.cpp.templates.testFileName": {
-            "order": 11,
+            "order": 10,
             "type": "string",
             "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
             "patternErrorMessage": "Template must consist only of letters, digits, underscores, and ${var} expressions.",
