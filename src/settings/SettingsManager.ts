@@ -2,6 +2,8 @@ import * as vscode from 'vscode';
 import { CSettings } from './CSettings';
 import { CppSettings } from './CppSettings';
 import { GeneralSettings } from './GeneralSettings';
+import { LanguageId, LanguageIdType } from '../core/LanguageId';
+import { LanguageSettings } from './LanguageSettings';
 
 /**
  * Manages extension settings for a given workspace folder.
@@ -13,10 +15,27 @@ export class SettingsManager {
     private readonly config: vscode.WorkspaceConfiguration;
 
     /**
+     * General extension settings for the workspace.
+     */
+    private readonly generalSettings: GeneralSettings;
+
+    /**
+     * Language-specific settings for the workspace.
+     */
+    private readonly languageSettings: LanguageSettings;
+
+    /**
+     * @param language Language id for language-specific settings.
      * @param workspaceFolder The workspace folder whose configuration should be used.
      */
-    constructor(workspaceFolder: vscode.WorkspaceFolder) {
+    constructor(language: LanguageIdType, workspaceFolder: vscode.WorkspaceFolder) {
         this.config = vscode.workspace.getConfiguration('cppClassMaker', workspaceFolder);
+        this.generalSettings = new GeneralSettings(this.config);
+        switch (language) {
+        case LanguageId.C: this.languageSettings = new CSettings(this.config); break;
+        case LanguageId.Cpp: this.languageSettings = new CppSettings(this.config); break;
+        default: throw new Error(`Unknown language id ${language}`);
+        }
     }
 
     /**
@@ -25,24 +44,15 @@ export class SettingsManager {
      * @returns General extension settings.
      */
     getGeneralSettings(): GeneralSettings {
-        return new GeneralSettings(this.config);
+        return this.generalSettings;
     }
 
     /**
-     * Returns the C language-specific settings.
+     * Returns language-specific settings.
      *
-     * @returns The C-specific settings.
+     * @returns language-specific settings.
      */
-    getCSettings(): CSettings {
-        return new CSettings(this.config);
-    }
-
-    /**
-     * Returns the C++ language-specific settings.
-     *
-     * @returns The C++-specific settings.
-     */
-    getCppSettings(): CppSettings {
-        return new CppSettings(this.config);
+    getLanguageSettings(): LanguageSettings {
+        return this.languageSettings;
     }
 }
