@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { CSettings } from './CSettings';
 import { CppSettings } from './CppSettings';
+import { GeneralSettings } from './GeneralSettings';
 
 /**
  * Manages extension settings for a given workspace folder.
@@ -16,6 +17,15 @@ export class SettingsManager {
      */
     constructor(workspaceFolder: vscode.WorkspaceFolder) {
         this.config = vscode.workspace.getConfiguration('cppClassMaker', workspaceFolder);
+    }
+
+    /**
+     * Returns general extension settings.
+     *
+     * @returns General extension settings.
+     */
+    getGeneralSettings(): GeneralSettings {
+        return new GeneralSettings(this.config);
     }
 
     /**

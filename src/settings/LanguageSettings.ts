@@ -27,49 +27,49 @@ export abstract class LanguageSettings extends Settings {
     /**
      * Returns the relative path to the include directory.
      *
-     * @returns The include directory path.
+     * @returns Include directory path.
      */
     abstract getIncludeDirectoryPath(): string;
 
     /**
      * Returns the relative path to the source directory.
      *
-     * @returns The source directory path.
+     * @returns Source directory path.
      */
     abstract getSourceDirectoryPath(): string;
 
     /**
      * Returns the relative path to the test directory.
      *
-     * @returns The test directory path.
+     * @returns Test directory path.
      */
     abstract getTestDirectoryPath(): string;
 
     /**
      * Returns the template used to generate include guards.
      *
-     * @returns The include guard template.
+     * @returns Include guard template.
      */
     abstract getIncludeGuardTemplate(): string;
 
     /**
      * Returns the template for naming header files.
      *
-     * @returns The header file name template.
+     * @returns Header file name template.
      */
     abstract getHeaderFileNameTemplate(): string;
 
     /**
      * Returns the template for naming source files.
      *
-     * @returns The source file name template.
+     * @returns Source file name template.
      */
     abstract getSourceFileNameTemplate(): string;
 
     /**
      * Returns the template for naming test files.
      *
-     * @returns The test file name template.
+     * @returns Test file name template.
      */
     abstract getTestFileNameTemplate(): string;
 
@@ -77,7 +77,7 @@ export abstract class LanguageSettings extends Settings {
      * Returns the template used to generate file content.
      *
      * @param fileType The type of the file to generate.
-     * @returns The file content template.
+     * @returns File content template.
      * @throws `Error` if the file type is not supported.
      */
     abstract getFileTemplate(fileType: FileType): string;
@@ -94,7 +94,7 @@ export abstract class LanguageSettings extends Settings {
      * Returns the identifier case from the configuration.
      *
      * @param property The property id.
-     * @returns The casing style corresponding to the config value.
+     * @returns Casing style corresponding to the config value.
      * @throws `Error` if the property is missing or invalid.
      */
     protected getIdentifierCase(property: string): IdentifierCase {
