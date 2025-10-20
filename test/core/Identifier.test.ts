@@ -18,6 +18,7 @@ suite("Identifier Test Suite", () => {
             ["hello world", false],
             ["hello-world", false],
             [".cpp", false],
+            ["hello.cpp", false],
             ["$cpp", false],
         ];
         tester.runTestCases(isIdentifier, testCases);
