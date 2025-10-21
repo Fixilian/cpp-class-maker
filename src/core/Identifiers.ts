@@ -1,6 +1,7 @@
 import { capitalizeFirst, isDigit, isLower, isUpper} from '../utils/Strings';
 import { IdentifierCase, IdentifierCases } from '../core';
 import { isAlpha } from '../utils/Chars';
+import { UnknownEnumValueError } from '../errors';
 
 /**
  * Converts identifier name to camelCase.
@@ -61,7 +62,7 @@ export function convertCase(identifier: string, c: IdentifierCase): string {
     case IdentifierCases.PascalCase: return toPascalCase(identifier);
     case IdentifierCases.SnakeCase: return toSnakeCase(identifier);
     case IdentifierCases.Untouched: return identifier;
-    default: throw new Error(`Unknown identifier casing style ${c} to convert`);
+    default: throw new UnknownEnumValueError('IdentifierCases', c);
     }
 }
 

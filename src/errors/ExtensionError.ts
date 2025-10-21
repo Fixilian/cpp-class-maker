@@ -1,4 +1,4 @@
-import { ErrorCode } from "./ErrorCode";
+import { ErrorCode } from './ErrorCode';
 
 /**
  * Represents an error specific to the extension.
@@ -21,7 +21,7 @@ export class ExtensionError extends Error {
      */
     constructor(message: string, code: ErrorCode, cause?: Error) {
         super(message);
-        this.name = "ExtensionError";
+        this.name = 'ExtensionError';
         this.code = code;
         this.cause = cause;
     }

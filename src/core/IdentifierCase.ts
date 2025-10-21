@@ -1,3 +1,5 @@
+import { UnknownEnumValueError } from '../errors';
+
 /**
  * Defines the supported identifier casing styles.
  */
@@ -18,11 +20,11 @@ export type IdentifierCase = (typeof IdentifierCases)[keyof typeof IdentifierCas
  *
  * @param value - The raw string to convert.
  * @returns The corresponding {@link IdentifierCase} value.
- * @throws `Error` if the string does not match any known case style.
+ * @throws {UnknownEnumValueError} if the string does not match any known case style.
  */
 export function fromString(value: string): IdentifierCase {
     if (Object.values(IdentifierCases).includes(value as IdentifierCase)) {
         return value as IdentifierCase;
     }
-    throw new Error(`Unknown identifier casing style name: ${value}`);
+    throw new UnknownEnumValueError('IdentifierCases', value);
 }

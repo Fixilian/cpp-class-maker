@@ -1,3 +1,5 @@
+import { UnknownEnumValueError } from '../errors';
+
 /**
  * Defines the possible C/C++ file types.
  */
@@ -28,6 +30,6 @@ export function isSourceOrTest(type: FileType): boolean {
     case FileTypes.Header: // fall through
     case FileTypes.EmptyHeader: // fall through
     case FileTypes.TemplateClassHeader: return false;
-    default: throw new Error(`Unknown file type ${type}`);
+    default: throw new UnknownEnumValueError('FilesTypes', type);
     }
 }

@@ -1,5 +1,6 @@
 import { IdentifierCase } from './IdentifierCase';
 import * as identifiers from './Identifiers';
+import { InvalidIdentifierError } from '../errors';
 
 /**
  * Represents C/C++ identifier.
@@ -12,11 +13,11 @@ export class Identifier {
 
     /**
      * @param name The identifier name. Must be a valid C/C++ identifier.
-     * @throws `Error` if the name is not a valid C/C++ identifier.
+     * @throws {InvalidIdentifierError} if the name is not a valid C/C++ identifier.
      */
     constructor(name: string) {
         if (!isIdentifier(name)) {
-            throw new Error(`"${name}" is invalid C/C++ identifier`);
+            throw new InvalidIdentifierError(name);
         }
         this.name = name;
     }

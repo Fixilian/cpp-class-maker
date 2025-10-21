@@ -3,6 +3,8 @@
  */
 export const ErrorCodes = {
     Error: 'Error',
+    InvalidIdentifier: 'InvalidIdentifier',
+    IoError: 'IoError',
     UnknownEnumValue: 'UnknownEnumValue',
 } as const;
 

@@ -17,6 +17,7 @@ export interface FileSystem {
      *
      * @param uri The URI to check.
      * @returns A promise that resolves to `true` if the resource exists, or `false` otherwise.
+     * @throws {IoError} when an I/O error occurs.
      */
     exists(uri: vscode.Uri): Promise<boolean>;
 
@@ -25,6 +26,7 @@ export interface FileSystem {
      *
      * @param uri The URI of the file to read.
      * @returns A promise that resolves to the file contents.
+     * @throws {IoError} when an I/O error occurs.
      */
     readFile(uri: vscode.Uri): Promise<string>;
 
