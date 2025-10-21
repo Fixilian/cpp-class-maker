@@ -5,5 +5,6 @@ export * from './FileType';
 export * from './Identifier';
 export * from './IdentifierCase';
 export * from './Identifiers';
+export * from './Logger';
 export * from './ProjectLayout';
 export * from './VscodeFileSystem';
