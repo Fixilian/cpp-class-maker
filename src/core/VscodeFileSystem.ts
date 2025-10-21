@@ -44,22 +44,4 @@ export class VscodeFileSystem implements FileSystem {
             current = parentPath;
         }
     }
-
-    visitDirsUpSync(start: vscode.Uri, visitor: UriVisitor): void {
-        // Loop until we reach the root
-        let current = start;
-        while (true) {
-            const wantContinue = visitor(current);
-            if (!wantContinue) {
-                return;
-            }
-            // Go one directory up
-            const parentPath = vscode.Uri.joinPath(current, '..');
-            // Stop if we reached the filesystem root
-            if (parentPath.fsPath === current.fsPath) {
-                return;
-            }
-            current = parentPath;
-        }
-    }
 }

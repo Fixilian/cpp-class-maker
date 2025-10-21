@@ -37,13 +37,4 @@ export interface FileSystem {
      * @returns A promise that resolves when the traversal is complete.
      */
     visitDirsUp(start: vscode.Uri, visitor: UriVisitor): Promise<void>;
-
-    /**
-     * Synchronously visits each parent directory starting from the given URI upwards,
-     * invoking the visitor callback for each directory.
-     *
-     * @param start The starting directory URI.
-     * @param visitor A callback invoked for each directory visited.
-     */
-    visitDirsUpSync(start: vscode.Uri, visitor: UriVisitor): void;
 }
