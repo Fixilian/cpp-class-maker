@@ -12,14 +12,14 @@ export class ExtensionError extends Error {
     /**
      * Original error that caused this error, if any.
      */
-    readonly cause?: Error;
+    readonly cause?: any;
 
     /**
      * @param message Human-readable description of the error.
      * @param code Machine-readable code representing the error category.
      * @param cause Optional original error that triggered this error.
      */
-    constructor(message: string, code: ErrorCode, cause?: Error) {
+    constructor(message: string, code: ErrorCode, cause?: any) {
         super(message);
         this.name = 'ExtensionError';
         this.code = code;
@@ -35,9 +35,13 @@ export class ExtensionError extends Error {
      * @param message The error message to which the cause information should be appended.
      * @returns The original message with cause details appended if a cause exists.
      */
-    protected appendCauseTo(message: string) {
+    protected appendCauseTo(message: string): string {
         if (this.cause) {
-            return message + `\nCaused by: ${this.cause.stack ?? this.cause.message}`;
+            if (this.cause instanceof Error) {
+                return message + `\nCaused by: ${this.cause.stack ?? this.cause.message}`;
+            } else {
+                return message + `\nCaused by: ${this.cause}`;
+            }
         }
         return message;
     }
