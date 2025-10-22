@@ -59,10 +59,14 @@ export class Logger implements vscode.Disposable {
     /**
      * Logs errors along with optional details.
      */
-    error(message: string, error?: Error): void {
+    error(message: string, error?: any): void {
         if (error) {
-            const details = error.stack ?? error.message;
-            this.channel.error(`${message} - ${details}`);
+            if (error instanceof Error) {
+                const details = error.stack ?? error.message;
+                this.channel.error(`${message} - ${details}`);
+            } else {
+                this.channel.error(`${message} - ${error}`);
+            }
         } else {
             this.channel.error(message);
         }
