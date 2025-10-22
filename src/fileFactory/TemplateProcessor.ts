@@ -1,4 +1,5 @@
 import { getPosition } from '../utils/PositionUtils';
+import { SyntaxError } from '../errors';
 
 /**
  * Transforms text according to the following rules:
@@ -25,7 +26,7 @@ export class TemplateProcessor {
      *
      * @param text The text to process.
      * @returns Processed text.
-     * @throws `Error` if var, const or value are empty or contain invalid characters
+     * @throws {SyntaxError} if var, const or value are empty or contain invalid characters
      * or if var is redeclared.
      */
     process(text: string): string {
@@ -54,7 +55,7 @@ export class TemplateProcessor {
         varPart: string,
         valuePart: string | undefined,
         offset: number,
-        variables: Map<string, string>) {
+        variables: Map<string, string>): string {
 
         let replacer: string;
 
@@ -67,7 +68,8 @@ export class TemplateProcessor {
             this.validateIdentifier(value, 'value', text, offset);
 
             if (variables.has(variable)) {
-                throw new Error(`Cannot redeclare variable ${variable}`);
+                const position = getPosition(text, offset);
+                throw new SyntaxError(`Cannot redeclare variable ${variable}`, position);
             }
             const constant = this.constants.get(value);
             if (constant) {
@@ -96,7 +98,7 @@ export class TemplateProcessor {
      * Validates that an identifier is non-empty and matches the allowed pattern.
      * Allowed characters: letters (A-Z, a-z), digits (0-9), underscore (_), and dash (-).
      *
-     * @throws `Error` if the identifier is empty or invalid.
+     * @throws {SyntaxError} if the identifier is empty or invalid.
      * @param value The string to validate.
      * @param kind Descriptive name for error messages (e.g. "variable", "value").
      * @param text Full text to compute line and column for error message.
@@ -106,12 +108,12 @@ export class TemplateProcessor {
         const identifierPattern = /^[A-Za-z0-9_-]+$/;
 
         if (value.length === 0) {
-            const { line, character } = getPosition(text, offset);
-            throw new Error(`Empty ${kind} at ${line + 1}:${character + 1}`);
+            const position = getPosition(text, offset);
+            throw new SyntaxError(`Empty ${kind}`, position);
         }
         if (!identifierPattern.test(value)) {
-            const { line, character } = getPosition(text, offset);
-            throw new Error(`Invalid ${kind} "${value}" at ${line + 1}:${character + 1}`);
+            const position = getPosition(text, offset);
+            throw new SyntaxError(`Invalid ${kind}`, position);
         }
     }
 }

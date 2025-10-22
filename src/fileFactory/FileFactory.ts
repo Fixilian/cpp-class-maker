@@ -4,6 +4,7 @@ import { HstLocations } from './HstLocations';
 import { TemplateProcessor } from './TemplateProcessor';
 import * as path from 'path';
 import * as paths from '../utils/Paths';
+import { UnknownEnumValueError } from '../errors';
 
 /**
  * Creates files of type FileType.
@@ -114,7 +115,7 @@ export class FileFactory {
         case FileTypes.Header: // fall through
         case FileTypes.EmptyHeader: // fall through
         case FileTypes.TemplateClassHeader: return this.settings.getHeaderFileNameTemplate();
-        default: throw new Error(`Unknown file type ${type}`);
+        default: throw new UnknownEnumValueError('FileTypes', type);
         }
     }
 
@@ -130,7 +131,7 @@ export class FileFactory {
         case FileTypes.Header: // fall through
         case FileTypes.EmptyHeader: // fall through
         case FileTypes.TemplateClassHeader: return this.locations.headerLoc;
-        default: throw new Error(`Unknown file type ${type}`);
+        default: throw new UnknownEnumValueError('FileTypes', type);
         }
     }
 }
