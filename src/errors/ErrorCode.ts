@@ -4,6 +4,7 @@
 export const ErrorCodes = {
     Error: 'Error',
     InvalidIdentifier: 'InvalidIdentifier',
+    InvalidProperty: 'InvalidProperty',
     IoError: 'IoError',
     Syntax: 'Syntax',
     UnknownEnumValue: 'UnknownEnumValue',

@@ -4,6 +4,7 @@ import { CppSettings } from './CppSettings';
 import { GeneralSettings } from './GeneralSettings';
 import { LanguageId, LanguageIdType } from '../core/LanguageId';
 import { LanguageSettings } from './LanguageSettings';
+import { UnknownEnumValueError } from '../errors';
 
 /**
  * Manages extension settings for a given workspace folder.
@@ -34,7 +35,7 @@ export class SettingsManager {
         switch (language) {
         case LanguageId.C: this.languageSettings = new CSettings(this.config); break;
         case LanguageId.Cpp: this.languageSettings = new CppSettings(this.config); break;
-        default: throw new Error(`Unknown language id ${language}`);
+        default: throw new UnknownEnumValueError('LanguageId', language);
         }
     }
 

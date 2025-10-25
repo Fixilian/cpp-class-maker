@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { FileType, FileTypes, IdentifierCase } from '../core';
 import { LanguageSettings } from './LanguageSettings';
+import { UnknownEnumValueError } from '../errors';
 
 /**
  * Represents C++ language-specific settings.
@@ -53,7 +54,7 @@ export class CppSettings extends LanguageSettings {
         case FileTypes.Test: return this.getOrEmpty('cpp.templates.classTestFile');
         case FileTypes.TemplateClassHeader:
             return this.getOrEmpty('cpp.templates.templateClassHeaderFile');
-        default: throw new Error(`Unsupported Cpp file type: ${fileType}`);
+        default: throw new UnknownEnumValueError('FileTypes', fileType);
         }
     }
 

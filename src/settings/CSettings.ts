@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { FileType, FileTypes, IdentifierCase } from '../core';
 import { LanguageSettings } from './LanguageSettings';
+import { UnknownEnumValueError } from '../errors';
 
 /**
  * Represents C language-specific settings.
@@ -51,7 +52,7 @@ export class CSettings extends LanguageSettings {
         case FileTypes.Source: return this.getOrEmpty('c.templates.structSourceFile');
         case FileTypes.EmptyHeader: return this.getOrEmpty('c.templates.emptyHeaderFile');
         case FileTypes.Test: return this.getOrEmpty('c.templates.structTestFile');
-        default: throw new Error(`Unsupported C file type: ${fileType}`);
+        default: throw new UnknownEnumValueError('FileTypes', fileType);
         }
     }
 

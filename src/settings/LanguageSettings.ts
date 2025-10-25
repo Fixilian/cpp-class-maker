@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import { FileType, IdentifierCase, fromString } from '../core';
 import { Settings } from './Settings';
+import { InvalidPropertyError } from '../errors';
 
 /**
  * Defines the base class for all language-specific settings.
@@ -95,12 +96,12 @@ export abstract class LanguageSettings extends Settings {
      *
      * @param property The property id.
      * @returns Casing style corresponding to the config value.
-     * @throws `Error` if the property is missing or invalid.
+     * @throws {InvalidPropertyError} if the property is missing or invalid.
      */
     protected getIdentifierCase(property: string): IdentifierCase {
         const value = this.config.get<string>(property);
         if (!value) {
-            throw new Error(`Missing setting: ${property}`);
+            throw new InvalidPropertyError(property, 'Value is not represents identifier case');
         }
         return fromString(value);
     }

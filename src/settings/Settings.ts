@@ -1,4 +1,5 @@
 import * as vscode from 'vscode';
+import { InvalidPropertyError } from '../errors';
 
 /**
  * Provides a base class for accessing workspace configuration settings.
@@ -32,13 +33,13 @@ export abstract class Settings {
      * @template T The expected type of the configuration value.
      * @param property Configuration property id.
      * @returns The value of the configuration property.
-     * @throws `Error` If the property is not found or its value is undefined/null.
+     * @throws {InvalidPropertyError} If the property is not found or its value is undefined/null.
      */
     protected getOrThrow<T>(property: string): T {
         const val = this.config.get<T>(property);
         if (val) {
             return val;
         }
-        throw new Error(`Unknown property ${property}`);
+        throw new InvalidPropertyError(property, 'Missing setting');
     }
 }
