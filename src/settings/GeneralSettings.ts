@@ -22,11 +22,29 @@ export class GeneralSettings extends Settings {
     }
 
     /**
+     * Updates whether automatic adding to the build system is allowed.
+     *
+     * @param value New setting value.
+     */
+    async setAutoAddToBuildSystemAllowed(value: boolean): Promise<void> {
+        await this.config.update('main.AutoAddToBuildSystem', value, true);
+    }
+
+    /**
      * Checks if automatically adding files to the Source Control Manager (SCM) is allowed.
      *
      * @returns `true` if automatic addition to the SCM is enabled.
      */
     isAutoAddToSourceControlManagerAllowed(): boolean {
         return this.getOrThrow('main.AutoAddToSourceControlManager');
+    }
+
+    /**
+     * Updates whether automatic adding to the Source Control Manager (SCM) is allowed.
+     *
+     * @param value New setting value.
+     */
+    async setAutoAddSourceControlManagerAllowed(value: boolean): Promise<void> {
+        await this.config.update('main.AutoAddToSourceControlManager', value, true);
     }
 }

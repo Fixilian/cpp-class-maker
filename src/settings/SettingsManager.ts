@@ -6,6 +6,8 @@ import { LanguageId, LanguageIdType } from '../core/LanguageId';
 import { LanguageSettings } from './LanguageSettings';
 import { UnknownEnumValueError } from '../errors';
 
+export const CONFIGURATION_NAME = 'cppClassMaker';
+
 /**
  * Manages extension settings for a given workspace folder.
  */
@@ -30,7 +32,7 @@ export class SettingsManager {
      * @param workspaceFolder The workspace folder whose configuration should be used.
      */
     constructor(language: LanguageIdType, workspaceFolder: vscode.WorkspaceFolder) {
-        this.config = vscode.workspace.getConfiguration('cppClassMaker', workspaceFolder);
+        this.config = vscode.workspace.getConfiguration(CONFIGURATION_NAME, workspaceFolder);
         this.generalSettings = new GeneralSettings(this.config);
         switch (language) {
         case LanguageId.C: this.languageSettings = new CSettings(this.config); break;

@@ -4,12 +4,13 @@ import * as vscode from 'vscode';
  * Shows a confirmation message with Yes / No options.
  *
  * @param question The question to ask the user.
+ * @param detail The detail of the question.
  * @returns True if "Yes", false if "No", or undefined if dismissed.
  */
-export async function showConfirmMessage(question: string): Promise<boolean | undefined> {
+export async function showConfirmMessage(question: string, detail: string): Promise<boolean | undefined> {
     const result = await vscode.window.showInformationMessage(
         question,
-        { modal: true },
+        { modal: true, detail: detail },
         'Yes',
         'No'
     );
