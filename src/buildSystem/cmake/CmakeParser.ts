@@ -1,6 +1,9 @@
 import { isUpperLetter, isLowerLetter, isDigit, isWhitespace } from '../../utils/Chars';
 import { CmakeCommand } from './CmakeCommand';
 
+/**
+ * Represents a simplified CMake parser.
+ */
 export class CmakeParser {
     /**
      * The cmake file content.

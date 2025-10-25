@@ -5,6 +5,7 @@ import { CmakeParser } from './CmakeParser';
 import { CmakeCommand } from './CmakeCommand';
 import { File, FileEdit, FileSystem, isSourceOrTest } from '../../core';
 import { getPosition } from '../../utils/PositionUtils';
+import { getLogger, Logger } from '../../core';
 
 export const CMAKE_FILE_NAME = 'CMakeLists.txt';
 
@@ -15,12 +16,15 @@ export class CmakeBuildSystem implements BuildSystem {
     /**
      * File system access used by the build system.
      */
-    private fs: FileSystem;
+    private readonly fs: FileSystem;
+
+    private readonly log: Logger;
 
     /**
      * @param fs The file system interface used for file operations.
      */
     constructor(fs: FileSystem) {
+        this.log = getLogger();
         this.fs = fs;
     }
 
@@ -28,12 +32,23 @@ export class CmakeBuildSystem implements BuildSystem {
         if (!isSourceOrTest(file.type)) {
             return [];
         }
-        const cmakeUri = await this.findCmakeFile(file.uri);
-        if (!cmakeUri) {
+
+        try {
+            const cmakeUri = await this.findCmakeFile(file.uri);
+            if (!cmakeUri) {
+                return [];
+            }
+
+            const content = await this.fs.readFile(cmakeUri);
+            return this.processCmakeFile(content, cmakeUri, file);
+
+        } catch (err) {
+            this.log.error(`Failed to add file ${file.uri.fsPath} to CMake`, err);
             return [];
         }
+    }
 
-        const content = await this.fs.readFile(cmakeUri);
+    private processCmakeFile(content: string, cmakeUri: vscode.Uri, file: File): FileEdit[] {
         const parser = new CmakeParser(content);
 
         const commandsWithSourceFiles = ['set', 'add_library', 'add_executable'];
@@ -104,5 +119,9 @@ export class CmakeBuildSystem implements BuildSystem {
         } else {
             return undefined;
         }
+    }
+
+    toString(): string {
+        return 'CMake';
     }
 }

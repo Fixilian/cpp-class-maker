@@ -19,8 +19,6 @@ export class BuildSystemFactory {
     private readonly layout: ProjectLayout;
 
     /**
-     * Initializes the BuildSystemFactory with the required dependencies.
-     *
      * @param fs File system for reading project files.
      * @param layout Project layout information for determining workspace structure.
      */
