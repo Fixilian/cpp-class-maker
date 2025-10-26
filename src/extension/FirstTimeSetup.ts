@@ -8,21 +8,6 @@ import { CONFIGURATION_NAME, GeneralSettings } from '../settings';
 const FIRST_TIME_INTERACTION_KEY = 'FirstTimeInteraction';
 
 /**
- * Result of the first-time setup process.
- */
-export interface FirstTimeSetupResult {
-    /**
-     * Whether automatic adding to build system is allowed.
-     */
-    readonly isAutoAddToBuildSystemAllowed: boolean;
-
-    /**
-     * Whether automatic adding to source control manager is allowed.
-     */
-    readonly isAutoAddToSourceControlManagerAllowed: boolean;
-}
-
-/**
  * Handles first-time setup interactions with the user.
  */
 export class FirstTimeSetup {
@@ -53,7 +38,7 @@ export class FirstTimeSetup {
      *
      * @returns Object describing user preferences for automatic actions.
      */
-    async run(): Promise<FirstTimeSetupResult> {
+    async run(): Promise<GeneralSettings> {
         const detail = 'You can change this behavior later in settings.';
         const isAutoAddToBuildSystemAllowed = await showConfirmMessage(
             'Enable auto-add to build system?',
@@ -75,6 +60,6 @@ export class FirstTimeSetup {
         await settings.setAutoAddToBuildSystemAllowed(result.isAutoAddToBuildSystemAllowed);
         await settings.setAutoAddSourceControlManagerAllowed(result.isAutoAddToSourceControlManagerAllowed);
 
-        return result
+        return settings;
     }
 }
