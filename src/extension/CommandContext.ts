@@ -61,6 +61,6 @@ export class CommandContext {
             includeDir: langSettings.getIncludeDirectoryPath(),
             sourceDir: langSettings.getSourceDirectoryPath(),
             testDir: langSettings.getTestDirectoryPath(),
-        }
+        };
     }
 }

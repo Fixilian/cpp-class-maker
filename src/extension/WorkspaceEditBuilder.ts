@@ -1,5 +1,5 @@
 import * as vscode from 'vscode';
-import { File, FileEdit } from '../core'
+import { File, FileEdit } from '../core';
 import { toUint8Array } from '../utils/Strings';
 
 /**

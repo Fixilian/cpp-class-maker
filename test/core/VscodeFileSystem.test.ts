@@ -24,7 +24,7 @@ suite("VS code file system Test Suite", () => {
         });
     });
 
-    test("visitDirsUpSync", () => {
+    test("visitDirsUpSync", async () => {
         const workspaceName = 'test_workspace';
         const workspacePath = path.join(process.cwd(), workspaceName);
         const dirPath = path.join(workspacePath, 'unit_tests', 'template_tests');
@@ -32,7 +32,7 @@ suite("VS code file system Test Suite", () => {
         const subDirCount = 3;
         let counter = 0;
 
-        fs.visitDirsUpSync(uri, (current: vscode.Uri) => {
+        await fs.visitDirsUp(uri, (current: vscode.Uri) => {
             const isSub = paths.isSubDirectory(workspacePath, current.path);
             if (isSub) {
                 counter += 1;
