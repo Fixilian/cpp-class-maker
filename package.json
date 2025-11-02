@@ -21,7 +21,7 @@
       },
       {
         "command": "cppClassMaker.newClassNoTest",
-        "title": "New Class w/o test",
+        "title": "New Class (No Test)",
         "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
       },
       {
@@ -36,7 +36,7 @@
       },
       {
         "command": "cppClassMaker.newTemplateClassNoTest",
-        "title": "New Template Class w/o test",
+        "title": "New Template Class (No Test)",
         "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
       },
       {
@@ -46,7 +46,7 @@
       },
       {
         "command": "cppClassMaker.newCStructNoTest",
-        "title": "New C Struct w/o test",
+        "title": "New C Struct (No Test)",
         "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
       },
       {
@@ -71,7 +71,7 @@
         },
         {
           "command": "cppClassMaker.newClassNoTest",
-          "group": "1_test"
+          "group": "navigation"
         },
         {
           "command": "cppClassMaker.newHeader",
@@ -83,7 +83,7 @@
         },
         {
           "command": "cppClassMaker.newTemplateClassNoTest",
-          "group": "1_test"
+          "group": "navigation"
         },
         {
           "command": "cppClassMaker.newCStruct",
@@ -115,14 +115,14 @@
           "cppClassMaker.main.AutoAddToBuildSystem": {
             "order": 0,
             "type": "boolean",
-            "default": false,
+            "default": true,
             "description": "Allow to automatically register newly created files in the build system configuration."
           },
           "cppClassMaker.main.AutoAddToSourceControlManager": {
             "order": 1,
             "type": "boolean",
-            "default": false,
-            "description": "Allow to automatically add newly created or modified files to the Source Control Manager (SCM)."
+            "default": true,
+            "description": "Allow to automatically add newly created files to the Source Control Manager (SCM)."
           }
         }
       },
@@ -208,13 +208,13 @@
           "cppClassMaker.cpp.templates.emptyHeaderFile": {
             "type": "string",
             "editPresentation": "multilineText",
-            "default": "#ifndef ${guard=HEADER_GUARD}\n#define ${guard}\n\nnamespace ${namespace=NAMESPACE} {\n\n\n} // namespace ${namespace}\n\n#endif // ${guard}\n",
+            "default": "#ifndef ${guard=INCLUDE_GUARD}\n#define ${guard}\n\nnamespace ${namespace=NAMESPACE} {\n\n\n} // namespace ${namespace}\n\n#endif // ${guard}\n",
             "description": "Template for empty header file."
           },
           "cppClassMaker.cpp.templates.classHeaderFile": {
             "type": "string",
             "editPresentation": "multilineText",
-            "default": "#ifndef ${guard=HEADER_GUARD}\n#define ${guard}\n\nnamespace ${namespace=NAMESPACE} {\n\nclass ${class_name=NAME} {\npublic:\n    ${class_name}();\n    ~${class_name}();\n\nprivate:\n\n};\n\n} // namespace ${namespace}\n\n#endif // ${guard}\n",
+            "default": "#ifndef ${guard=INCLUDE_GUARD}\n#define ${guard}\n\nnamespace ${namespace=NAMESPACE} {\n\nclass ${class_name=NAME} {\npublic:\n    ${class_name}();\n    ~${class_name}();\n\nprivate:\n\n};\n\n} // namespace ${namespace}\n\n#endif // ${guard}\n",
             "description": "Template for class header file."
           },
           "cppClassMaker.cpp.templates.classSourceFile": {
@@ -226,13 +226,13 @@
           "cppClassMaker.cpp.templates.classTestFile": {
             "type": "string",
             "editPresentation": "multilineText",
-            "default": "#include <gmock/gmock.h>\n#include <gtest/gtest.h>\n\n#include <vector>\n#include <string>\n\n#include \"${HEADER_PATH}\"\n\nusing namespace ${NAMESPACE};\n\nTEST(${NAME}Test, TestCase) {\n\n}\n",
+            "default": "#include <gmock/gmock.h>\n#include <gtest/gtest.h>\n\n#include <vector>\n#include <string>\n\n#include \"${HEADER_PATH}\"\n\nusing namespace std;\nusing namespace ${NAMESPACE};\n\nTEST(${NAME}Test, TestCase) {\n\n}\n",
             "description": "Template for class test file."
           },
           "cppClassMaker.cpp.templates.templateClassHeaderFile": {
             "type": "string",
             "editPresentation": "multilineText",
-            "default": "#ifndef ${guard=HEADER_GUARD}\n#define ${guard}\n\nnamespace ${namespace=NAMESPACE} {\n\ntemplate <typename T>\nclass ${class_name=NAME} {\npublic:\n    ${class_name}();\n    ~${class_name}();\n\nprivate:\n\n};\n\n} // namespace ${namespace}\n\n#endif // ${guard}\n",
+            "default": "#ifndef ${guard=INCLUDE_GUARD}\n#define ${guard}\n\nnamespace ${namespace=NAMESPACE} {\n\ntemplate <typename T>\nclass ${class_name=NAME} {\npublic:\n    ${class_name}();\n    ~${class_name}();\n\nprivate:\n\n};\n\n} // namespace ${namespace}\n\n#endif // ${guard}\n",
             "description": "Template for template class header file."
           }
         }
@@ -313,13 +313,13 @@
           "cppClassMaker.c.templates.emptyHeaderFile": {
             "type": "string",
             "editPresentation": "multilineText",
-            "default": "#ifndef ${guard=C_HEADER_GUARD}\n#define ${guard}\n\n\n#endif // ${guard}",
+            "default": "#ifndef ${guard=INCLUDE_GUARD}\n#define ${guard}\n\n\n#endif // ${guard}",
             "description": "Template for empty header file."
           },
           "cppClassMaker.c.templates.structHeaderFile": {
             "type": "string",
             "editPresentation": "multilineText",
-            "default": "#ifndef ${guard=C_HEADER_GUARD}\n#define ${guard}\n\ntypedef struct ${class_name=NAME} {\n\n} ${class_name};\n\n\n\n#endif // ${guard}",
+            "default": "#ifndef ${guard=INCLUDE_GUARD}\n#define ${guard}\n\ntypedef struct ${class_name=NAME} {\n\n} ${class_name};\n\n\n\n#endif // ${guard}",
             "description": "Template for struct header file."
           },
           "cppClassMaker.c.templates.structSourceFile": {
