@@ -38,13 +38,13 @@ export class CommandContext {
 
     /**
      * @param language Language identifier of the current project.
-     * @param args Command arguments (first argument should contain a URI).
+     * @param uri URI from file explorer.
      * @throws Error if the workspace folder cannot be determined.
      */
-    constructor(language: LanguageIdType, args: any[]) {
+    constructor(language: LanguageIdType, uri: vscode.Uri) {
         this.fs = new VscodeFileSystem();
 
-        const destinationUri = this.getDestinationUri(args);
+        const destinationUri = uri;
         this.destinationDir = destinationUri.path;
 
         const folder = vscode.workspace.getWorkspaceFolder(destinationUri);
@@ -62,14 +62,5 @@ export class CommandContext {
             sourceDir: langSettings.getSourceDirectoryPath(),
             testDir: langSettings.getTestDirectoryPath(),
         }
-    }
-
-    /**
-     * Extracts the destination URI from the command arguments.
-     */
-    private getDestinationUri(args: any[]): vscode.Uri {
-        // first element is uri when command was called from context menu
-        const uri = args[0];
-        return vscode.Uri.from(uri);
     }
 }

@@ -24,8 +24,8 @@ export class CommandFactory {
      * @returns A command ready for registration and execution.
      */
     create(language: LanguageIdType, fileTypes: FileType[]): Command {
-        const command = async (ctxManager: ExtensionContextManager, args: any[]) => {
-            return await createFilesCommand(language, fileTypes, ctxManager, args);
+        const command = async (ctxManager: ExtensionContextManager, uri: vscode.Uri) => {
+            return await createFilesCommand(language, fileTypes, ctxManager, uri);
         };
         return command;
     }
@@ -37,13 +37,13 @@ export class CommandFactory {
  * @param language Target language identifier.
  * @param fileTypes File types to create.
  * @param ctxManager Extension context manager.
- * @param args Command arguments.
+ * @param uri URI from file explorer.
  */
 async function createFilesCommand(
     language: LanguageIdType,
     fileTypes: FileType[],
     ctxManager: ExtensionContextManager,
-    args: any[]
+    uri: vscode.Uri
 ): Promise<void> {
     const log = getLogger();
     const name = await showIdentifierInputBox(IdentifierTypes.ClassName);
@@ -52,7 +52,7 @@ async function createFilesCommand(
     }
 
     try {
-        const ctx = new CommandContext(language, args);
+        const ctx = new CommandContext(language, uri);
         const editBuilder = new WorkspaceEditBuilder();
 
         const identifier = new Identifier(name);
