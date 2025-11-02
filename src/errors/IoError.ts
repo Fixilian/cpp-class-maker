@@ -11,6 +11,6 @@ export class IoError extends ExtensionError {
      * @param message Human-readable description of the I/O error.
      */
     constructor(message: string, cause?: any) {
-        super(`I/O error: ${message}`, ErrorCodes.IoError, cause);
+        super(`I/O error: ${message}`, ErrorCodes.Io, cause);
     }
 }

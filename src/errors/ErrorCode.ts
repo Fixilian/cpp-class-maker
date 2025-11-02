@@ -5,9 +5,10 @@ export const ErrorCodes = {
     Error: 'Error',
     InvalidIdentifier: 'InvalidIdentifier',
     InvalidProperty: 'InvalidProperty',
-    IoError: 'IoError',
+    Io: 'Io',
     Syntax: 'Syntax',
     UnknownEnumValue: 'UnknownEnumValue',
+    Wokspace: 'Workspace',
 } as const;
 
 /**

@@ -2,6 +2,7 @@ import * as vscode from 'vscode';
 import { FileSystem, ProjectLayout, VscodeFileSystem } from '../core';
 import { LanguageIdType } from '../core/LanguageId';
 import { SettingsManager } from '../settings';
+import { WorkspaceError } from '../errors';
 
 /**
  * Represents an execution context for a command.
@@ -48,7 +49,7 @@ export class CommandContext {
 
         const folder = vscode.workspace.getWorkspaceFolder(destinationUri);
         if (!folder) {
-            throw new Error('There is no workspace to create class');
+            throw new WorkspaceError('Failed to detect opened workspace');
         }
         this.workspaceFolder = folder;
 

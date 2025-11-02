@@ -5,3 +5,4 @@ export { InvalidPropertyError } from './InvalidProperty';
 export { IoError } from './IoError';
 export { SyntaxError } from './SyntaxError';
 export { UnknownEnumValueError } from './UnknownEnumValueError';
+export { WorkspaceError } from './WorkspaceError';
