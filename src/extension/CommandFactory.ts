@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { ExtensionContextManager } from './ExtensionContextManager';
-import { FileType, Identifier, LanguageIdType } from '../core';
+import { FileType, getLogger, Identifier, LanguageIdType } from '../core';
 import { CommandContext } from './CommandContext';
 import { IdentifierTypes, showIdentifierInputBox } from '../ui/showIdentifierInputBox';
 import { FileFactory } from '../fileFactory';
@@ -9,6 +9,8 @@ import { WorkspaceEditBuilder } from './WorkspaceEditBuilder';
 import { FirstTimeSetup } from './FirstTimeSetup';
 import { GeneralSettings } from '../settings';
 import { Command } from './Command';
+import { ExtensionError } from '../errors';
+import { showErrorMessage } from '../ui/showErrorMessage';
 
 /**
  * Factory for creating extension commands.
@@ -43,42 +45,51 @@ async function createFilesCommand(
     ctxManager: ExtensionContextManager,
     args: any[]
 ): Promise<void> {
+    const log = getLogger();
     const name = await showIdentifierInputBox(IdentifierTypes.ClassName);
     if (!name) {
         return;
     }
 
-    const ctx = new CommandContext(language, args);
-    const editBuilder = new WorkspaceEditBuilder();
+    try {
+        const ctx = new CommandContext(language, args);
+        const editBuilder = new WorkspaceEditBuilder();
 
-    const identifier = new Identifier(name);
-    const languageSettings = ctx.settingsManager.getLanguageSettings();
-    const fileFactory = new FileFactory(identifier, ctx.destinationDir, ctx.projectLayout, languageSettings);
+        const identifier = new Identifier(name);
+        const languageSettings = ctx.settingsManager.getLanguageSettings();
+        const fileFactory = new FileFactory(identifier, ctx.destinationDir, ctx.projectLayout, languageSettings);
 
-    const files = fileTypes.map((type: FileType) => fileFactory.create(type));
-    for (const file of files) {
-        editBuilder.createFile(file);
-    }
-
-    const workspaceCtx = await getWorkspaceContext(ctx, ctxManager);
-
-    const buildSystem = workspaceCtx.getBuildSystem();
-    if (buildSystem) {
+        const files = fileTypes.map((type: FileType) => fileFactory.create(type));
         for (const file of files) {
-            const edits = await buildSystem.addFile(file);
-            for (const edit of edits) {
-                editBuilder.replace(edit);
+            editBuilder.createFile(file);
+        }
+
+        const workspaceCtx = await getWorkspaceContext(ctx, ctxManager);
+
+        const buildSystem = workspaceCtx.getBuildSystem();
+        if (buildSystem) {
+            for (const file of files) {
+                const edits = await buildSystem.addFile(file);
+                for (const edit of edits) {
+                    editBuilder.replace(edit);
+                }
             }
         }
-    }
 
-    const scm = workspaceCtx.getScm();
-    if (scm) {
-        await scm.addFiles(files);
-    }
+        const scm = workspaceCtx.getScm();
+        if (scm) {
+            await scm.addFiles(files);
+        }
 
-    const workspaceEdit = editBuilder.build();
-    await vscode.workspace.applyEdit(workspaceEdit, {isRefactoring: true});
+        const workspaceEdit = editBuilder.build();
+        await vscode.workspace.applyEdit(workspaceEdit, {isRefactoring: true});
+
+    } catch (err) {
+        log.error('Fatal error: ', err);
+        if (err instanceof ExtensionError) {
+            await showErrorMessage(err.toString());
+        }
+    }
 }
 
 /**
