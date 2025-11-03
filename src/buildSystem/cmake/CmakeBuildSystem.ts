@@ -62,10 +62,8 @@ export class CmakeBuildSystem implements BuildSystem {
         const relFilePath = path.relative(cmakeDir.path, file.uri.path);
         const offset = parser.findFileInsertPosition(command, relFilePath);
 
-        let insertText = relFilePath + '\n';
-        if (parser.needsNewlineBefore(offset)) {
-            insertText = '\n' + insertText;
-        }
+        const indent = this.getIndent(cmakeUri);
+        const insertText = `\n${indent}${relFilePath}`;
 
         const position = getPosition(content, offset);
         const textEdit = vscode.TextEdit.insert(position, insertText);
@@ -119,6 +117,20 @@ export class CmakeBuildSystem implements BuildSystem {
         } else {
             return undefined;
         }
+    }
+
+    /**
+     * Returns an indentation string for the given file,
+     * based on VS Code settings (including .editorconfig).
+     *
+     * @param uri The URI of the file whose indentation should be determined.
+     * @returns A string representing one indentation level (spaces or tab).
+     */
+    private getIndent(uri: vscode.Uri): string {
+        const editorConfig = vscode.workspace.getConfiguration('editor', uri);
+        const insertSpaces = editorConfig.get<boolean>('insertSpaces', true);
+        const tabSize = editorConfig.get<number>('tabSize', 4);
+        return insertSpaces ? ' '.repeat(tabSize) : '\t';
     }
 
     toString(): string {

@@ -5,58 +5,100 @@ import { readFileSync } from 'fs';
 
 suite("CMake parser Test Suite", () => {
 
-    test("findCmakeCommands", () => {
-        const testPath = 'test_workspace/unit_tests/cmake/findCmakeCommands.txt';
-        const cmake = readFileSync(testPath, "utf8");
-        const expected = new Map<string, CmakeCommand>([
-            ['set', {name: "set", nameStart: 0, argsStart: 4, end: 63}],
-            ['add_library', {name: "add_library", nameStart: 65, argsStart: 78, end: 98}],
-            ['add_executable', {name: "add_executable", nameStart: 224, argsStart: 239, end: 270}],
+    test("findCmakeCommands searches for commands correctly", () => {
+        const testCases = new Map<string, string[]>([
+            ['test_workspace/unit_tests/cmake/findCmakeCommands_all.txt', ['set', 'add_library', 'add_executable']],
+            ['test_workspace/unit_tests/cmake/findCmakeCommands_edge.txt', ['set', 'add_library']],
         ]);
-        const parser = new CmakeParser(cmake);
-        const commands = parser.findCmakeCommands(['set', 'add_library', 'add_executable']);
-        commands.forEach((command) => {
-            const expectedCommand = expected.get(command.name);
-            if (!expectedCommand) {
-                assert.fail();
-            }
-            assert.deepStrictEqual(command, expectedCommand);
-        });
+        for (const testCase of testCases) {
+            const [filepath, expectedCommands] = testCase;
+            const cmake = readFileSync(filepath, "utf8");
+            const parser = new CmakeParser(cmake);
+
+            const commands = parser.findCmakeCommands(['set', 'add_library', 'add_executable']);
+            assert.equal(commands.length, expectedCommands.length);
+
+            const commandSet = new Set<string>();
+            commands.forEach((command) => {
+                commandSet.add(command.name);
+                const contains = expectedCommands.includes(command.name);
+                assert.equal(contains, true);
+            });
+            assert.equal(commandSet.size, expectedCommands.length);
+        }
+    });
+
+    test("findCmakeCommands returns correct indexes", () => {
+        const testCases: [string, CmakeCommand][] = [
+            ['set(SOURCES alloc.cpp ops.cpp)', {name: "set", nameStart: 0, argsStart: 4, end: 30}],
+            ['add_library (lib STATIC lib.cpp)', {name: "add_library", nameStart: 0, argsStart: 13, end: 32}],
+            ['\n\t\nadd_executable (app main.cpp logger.cpp)',
+                {name: "add_executable", nameStart: 3, argsStart: 19, end: 43}],
+        ];
+        for (const testCase of testCases) {
+            const [cmake, expectedCommand] = testCase;
+            const parser = new CmakeParser(cmake);
+            const commands = parser.findCmakeCommands(['set', 'add_library', 'add_executable']);
+
+            assert.equal(commands.length, 1);
+            const command = commands[0];
+            assert.deepEqual(command, expectedCommand);
+        }
     });
 
     test("parseCmakeCommandArgs", () => {
         const testCases: [string, CmakeCommand, string[]][] = [
             ['set(SOURCES alloc.cpp ops.cpp)', {name: "set", nameStart: 0, argsStart: 4, end: 30},
                 ['SOURCES', 'alloc.cpp', 'ops.cpp']],
-            ['add_library (libchip8 STATIC lib.cpp)', {name: "add_library", nameStart: 0, argsStart: 13, end: 37},
-                ['libchip8', 'STATIC', 'lib.cpp']],
+            ['add_library (lib STATIC lib.cpp)', {name: "add_library", nameStart: 0, argsStart: 13, end: 32},
+                ['lib', 'STATIC', 'lib.cpp']],
+            ['\n\t\nadd_executable (app\n\tmain.cpp\n\tlogger.cpp\n\tmath.cpp\n)',
+                {name: "add_library", nameStart: 3, argsStart: 19, end: 56},
+                ['app', 'main.cpp', 'logger.cpp', 'math.cpp']],
         ];
-        for (let i = 0; i < testCases.length; i += 1) {
-            const testCase = testCases[i];
-            const cmake = testCase[0];
+        for (const testCase of testCases) {
+            const [cmake, command, expetedArgs] = testCase;
             const parser = new CmakeParser(cmake);
-            const command = testCase[1];
             const args = parser.parseCmakeCommandArgs(command);
-            const expected = testCase[2];
-            for (let j = 0; j < expected.length; j += 1) {
-                assert.equal(args[j], expected[j]);
+            for (let j = 0; j < expetedArgs.length; j += 1) {
+                assert.equal(args[j], expetedArgs[j]);
             }
         }
     });
 
-    test("findFileInsertPosition", () => {
-        const cmake = 'add_library (libchip8 STATIC\n\talpha.cpp\n\tbeta.cpp\n\tgamma.cpp\n)';
+    test("findFileInsertPosition when not first src file", () => {
+        const cmake = 'add_library (lib STATIC\n\talpha.cpp\n\tbeta.cpp\n\tgamma.cpp\n)';
         const parser = new CmakeParser(cmake);
-        const command = {name: "add_library", nameStart: 0, argsStart: 13, end: 62};
+        const command = {name: "add_library", nameStart: 0, argsStart: 13, end: 57};
         const testCases: [string, number][] = [
-            ['aa.cpp', 30],
-            ['bb.cpp', 41],
-            ['test.cpp', 61],
+            ['aa.cpp', 23],
+            ['bb.cpp', 34],
+            ['test.cpp', 55],
         ];
-        for (let i = 0; i < testCases.length; i += 1) {
-            const testCase = testCases[i];
-            const actual = parser.findFileInsertPosition(command, testCase[0]);
-            assert.equal(actual, testCase[1]);
+        for (const testCase of testCases) {
+            const [filename, pos] = testCase;
+            const actual = parser.findFileInsertPosition(command, filename);
+            assert.equal(actual, pos);
+        }
+    });
+
+    test("findFileInsertPosition when first src file", () => {
+        const filename = 'aa.cpp';
+        const testCases: [string, number, CmakeCommand][] = [
+            ['add_library (lib STATIC\n\t\n)', 23,
+                {name: "add_library", nameStart: 0, argsStart: 13, end: 27}],
+            ['add_library (lib STATIC\n)', 23,
+                {name: "add_library", nameStart: 0, argsStart: 13, end: 25}],
+            ['add_library (lib STATIC )', 23,
+                {name: "add_library", nameStart: 0, argsStart: 13, end: 25}],
+            ['add_library (lib STATIC)', 23,
+                {name: "add_library", nameStart: 0, argsStart: 13, end: 24}],
+        ];
+        for (const testCase of testCases) {
+            const [cmake, pos, command] = testCase;
+            const parser = new CmakeParser(cmake);
+            const actual = parser.findFileInsertPosition(command, filename);
+            assert.equal(actual, pos);
         }
     });
 });

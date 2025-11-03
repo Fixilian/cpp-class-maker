@@ -1,17 +1,19 @@
+cmake_minimum_required(VERSION 3.13)
+project(chip8 VERSION 1.0 LANGUAGES CXX)
+
 set(SOURCES
     base/Allocator.cpp
     base/BitOperations.cpp
 )
 
-add_library (libchip8 ${SOURCES})
+add_library (lib ${SOURCES})
 
-target_link_libraries(libchip8 PRIVATE
+target_link_libraries(lib PRIVATE
     nlohmann_json::nlohmann_json
 )
 
-# add_executable(${CMAKE_PROJECT_NAME} main.cpp)
 add_executable(${CMAKE_PROJECT_NAME} main.cpp)
 
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
-    libchip8
+    lib
 )

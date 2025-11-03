@@ -144,59 +144,23 @@ export class CmakeParser {
             insertIndex = fileArgs.length;
         }
 
-        // Determine reference offset in the content for insertion
-        let refOffset: number;
         if (insertIndex === fileArgs.length) {
-            // Insert at the end of the file list
-            if (fileArgs.length > 0) {
-                const last = fileArgs[fileArgs.length - 1];
-                refOffset = content.indexOf(last, command.argsStart) + last.length;
-            } else {
-                // No files yet, insert right after metadata
-                if (firstFileIndex > 0) {
-                    const lastMeta = args[firstFileIndex - 1];
-                    refOffset = content.indexOf(lastMeta, command.argsStart) + lastMeta.length;
-                } else {
-                    refOffset = command.argsStart;
-                }
+            // Insert at the end of the args list
+            if (args.length > 0) {
+                const last = args[args.length - 1];
+                return content.indexOf(last, command.argsStart) + last.length;
             }
+
         } else {
             // Insert before the file at insertIndex
-            refOffset = content.indexOf(fileArgs[insertIndex], command.argsStart);
-        }
-
-        // Skip any whitespace or newlines after the previous argument
-        while (refOffset < content.length && isWhitespace(content[refOffset])) {
-            refOffset++;
-        }
-        return refOffset;
-    }
-
-    /**
-     * Determines if a newline should be inserted before a given position
-     * for correct formatting.
-     *
-     * If any non-whitespace character is found before the start of the line,
-     * returns true (newline is needed).
-     *
-     * @param offset The position to check.
-     * @returns `true` if a newline should be inserted, `false` otherwise.
-     */
-    needsNewlineBefore(offset: number): boolean {
-        let i = offset;
-        while (i >= 0) {
-            const ch = this.content[i];
-
-            if (ch === '\n') {
-                return false;
+            const prevIndex = firstFileIndex + insertIndex - 1;
+            if (prevIndex >= 0) {
+                const prev = args[prevIndex];
+                return content.indexOf(prev, command.argsStart) + prev.length;
             }
-            if (isWhitespace(ch)) {
-                i--;
-                continue;
-            }
-            return true;
         }
-        return false;
+
+        return command.argsStart;
     }
 
     /**
