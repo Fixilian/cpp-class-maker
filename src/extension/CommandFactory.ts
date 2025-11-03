@@ -1,6 +1,6 @@
 import * as vscode from 'vscode';
 import { ExtensionContextManager } from './ExtensionContextManager';
-import { FileType, getLogger, Identifier, LanguageIdType } from '../core';
+import { File, FileType, FileTypes, getLogger, Identifier, LanguageIdType } from '../core';
 import { CommandContext } from './CommandContext';
 import { IdentifierTypes, showIdentifierInputBox } from '../ui/showIdentifierInputBox';
 import { FileFactory } from '../fileFactory';
@@ -84,6 +84,8 @@ async function createFilesCommand(
         const workspaceEdit = editBuilder.build();
         await vscode.workspace.applyEdit(workspaceEdit, {isRefactoring: true});
 
+        await openFileInEditor(files[0]);
+
     } catch (err) {
         log.error('Fatal error: ', err);
         if (err instanceof ExtensionError) {
@@ -117,4 +119,13 @@ async function getWorkspaceContext(ctx: CommandContext, ctxManager: ExtensionCon
     }
     await workspaceCtx.update(ctx.fs, ctx.projectLayout, settings);
     return workspaceCtx;
+}
+
+/**
+ * Opens a file in the editor.
+ * @param file The file to open.
+ */
+export async function openFileInEditor(file: File): Promise<void> {
+    const doc = await vscode.workspace.openTextDocument(file.uri);
+    await vscode.window.showTextDocument(doc, { preview: false, preserveFocus: false });
 }
