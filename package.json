@@ -1,14 +1,30 @@
 {
   "name": "cpp-class-maker",
   "displayName": "C/C++ Class Maker",
-  "description": "Cpp class maker",
+  "description": "Create C/C++ header, source and test files in one click — with automatic CMake and Git integration.",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.103.2"
   },
+  "license": "GPL-3.0-only",
   "categories": [
+    "Programming Languages",
     "Other"
   ],
+  "keywords": [
+    "C++",
+    "C",
+    "CMake",
+    "Git",
+    "generator",
+    "file",
+    "header",
+    "source",
+    "test",
+    "auto",
+    "automation"
+  ],
+  "extensionKind": ["workspace"],
   "activationEvents": [],
   "main": "./dist/extension.js",
 
@@ -121,7 +137,7 @@
           "cppClassMaker.main.AutoAddToSourceControlManager": {
             "order": 1,
             "type": "boolean",
-            "default": false,
+            "default": true,
             "description": "Allow to automatically add newly created files to the Source Control Manager (SCM)."
           }
         }
