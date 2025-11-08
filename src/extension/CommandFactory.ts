@@ -6,7 +6,6 @@ import { IdentifierTypes, showIdentifierInputBox } from '../ui/showIdentifierInp
 import { FileFactory } from '../fileFactory';
 import { WorkspaceContext } from './WorkspaceContext';
 import { WorkspaceEditBuilder } from './WorkspaceEditBuilder';
-import { FirstTimeSetup } from './FirstTimeSetup';
 import { GeneralSettings } from '../settings';
 import { Command } from './Command';
 import { ExtensionError } from '../errors';
@@ -102,14 +101,7 @@ async function createFilesCommand(
  * @returns Active workspace context for the operation.
  */
 async function getWorkspaceContext(ctx: CommandContext, ctxManager: ExtensionContextManager): Promise<WorkspaceContext> {
-    const firstTimeSetup = new FirstTimeSetup(ctxManager.context);
-    let settings: GeneralSettings | undefined;
-    if (firstTimeSetup.isFirstTimeInteraction()) {
-        settings = await firstTimeSetup.run();
-    } else {
-        settings = ctx.settingsManager.getGeneralSettings();
-    }
-
+    const settings = ctx.settingsManager.getGeneralSettings();
     const folderName = ctx.workspaceFolder.name;
     const workspaceCtx = ctxManager.getWorkspaceContext(folderName);
     if (!workspaceCtx) {

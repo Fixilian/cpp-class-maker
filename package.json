@@ -121,7 +121,7 @@
           "cppClassMaker.main.AutoAddToSourceControlManager": {
             "order": 1,
             "type": "boolean",
-            "default": true,
+            "default": false,
             "description": "Allow to automatically add newly created files to the Source Control Manager (SCM)."
           }
         }
