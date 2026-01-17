@@ -1,0 +1,13 @@
+#include <gmock/gmock.h>
+#include <gtest/gtest.h>
+
+#include <vector>
+#include <string>
+
+#include "${HEADER_PATH}"
+
+using namespace ${NAMESPACE};
+
+TEST(${NAME}Test, TestCase) {
+  
+}

@@ -1,0 +1,38 @@
+{
+  "command.newClass": "New Class",
+  "command.newClassNoTest": "New Class (No Test)",
+  "command.newHeader": "New Header",
+  "command.newTemplateClass": "New Template Class",
+  "command.newTemplateClassNoTest": "New Template Class (No Test)",
+  "command.newCStruct": "New C Struct",
+  "command.newCStructNoTest": "New C Struct (No Test)",
+  "command.newCHeader": "New C Header",
+
+  "submenu.label": "New Class",
+
+  "configuration.AutoAddToBuildSystem": "Allow newly created files to be automatically added to the Build System (CMake)",
+  "configuration.AutoAddToSourceControlManager": "Allow newly created files to be automatically added to the Source Control Manager (Git)",
+
+  "configuration.fileNameCase": "Determines the case of all file names",
+  "configuration.namespace": "Namespace with which files will be created",
+  "configuration.headerFileExtension": "Extension with which header files will be created",
+  "configuration.sourceFileExtension": "Extension with which source files will be created",
+  "configuration.includeDirectoryPath": "Relative path to the include directory",
+  "configuration.sourceDirectoryPath": "Relative path to the source directory",
+  "configuration.testDirectoryPath": "Relative path to the test directory",
+  "configuration.includeGuard": "Template for include guard",
+  "configuration.headerFileName": "Template for header file name",
+  "configuration.sourceFileName": "Template for source file name",
+  "configuration.testFileName": "Template for test file name",
+  "configuration.emptyHeaderFile": "Template for empty header file",
+  "configuration.classHeaderFile": "Template for class header file",
+  "configuration.classSourceFile": "Template for class source file",
+  "configuration.classTestFile": "Template for class test file",
+  "configuration.templateClassHeaderFile": "Template for template class header file",
+
+  "configuration.structHeaderFile": "Template for struct header file",
+  "configuration.structSourceFile": "Template for struct source file",
+  "configuration.structTestFile": "Template for struct test file",
+
+  "configuration.patternErrorMessage": "Template must consist only of letters, digits, underscores, and ${var} expressions"
+}

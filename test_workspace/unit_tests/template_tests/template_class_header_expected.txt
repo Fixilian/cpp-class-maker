@@ -1,0 +1,18 @@
+#ifndef BASE_STRING_STRING_BUILDER_H
+#define BASE_STRING_STRING_BUILDER_H
+
+namespace strings {
+
+template <typename T>
+class StringBuilder {
+public:
+    StringBuilder();
+    ~StringBuilder();
+
+private:
+
+};
+
+} // namespace strings
+
+#endif // BASE_STRING_STRING_BUILDER_H

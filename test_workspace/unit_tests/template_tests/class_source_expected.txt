@@ -1,0 +1,7 @@
+#include "StringBuilder.hpp"
+
+namespace strings {
+
+
+
+} // namespace strings

@@ -1,0 +1,38 @@
+{
+  "command.newClass": "Новый Класс",
+  "command.newClassNoTest": "Новый Класс (Без Теста)",
+  "command.newHeader": "Новый Заголовочный Файл",
+  "command.newTemplateClass": "Новый Шаблонный Класс",
+  "command.newTemplateClassNoTest": "Новый Шаблонный Класс (Без Теста)",
+  "command.newCStruct": "Новая С Структура",
+  "command.newCStructNoTest": "Новая С Структура (Без Теста)",
+  "command.newCHeader": "Новый С Заголовочный Файл",
+
+  "submenu.label": "Новый Класс",
+
+  "configuration.AutoAddToBuildSystem": "Разрешить добавлять созданные файлы в систему сборки (CMake)",
+  "configuration.AutoAddToSourceControlManager": "Разрешить добавлять созданные файлы в систему контроля версий (Git)",
+
+  "configuration.fileNameCase": "Определяет регистр имен файлов",
+  "configuration.namespace": "Пространство имен с которым будут создаваться классы",
+  "configuration.headerFileExtension": "Расширение с которым будут создаваться заголовочные файлы",
+  "configuration.sourceFileExtension": "Расширение с которым будут создаваться исходники",
+  "configuration.includeDirectoryPath": "Относительный путь до директории с заголовочными файлами",
+  "configuration.sourceDirectoryPath": "Относительный путь до директории с исходниками",
+  "configuration.testDirectoryPath": "Относительный путь до директории с тестами",
+  "configuration.includeGuard": "Шаблон для Include Guard",
+  "configuration.headerFileName": "Шаблон имени заголовочного файла",
+  "configuration.sourceFileName": "Шаблон имени исходника",
+  "configuration.testFileName": "Шаблон имени теста",
+  "configuration.emptyHeaderFile": "Шаблон пустого заголовочного файла",
+  "configuration.classHeaderFile": "Шаблон заголовочного файла класса",
+  "configuration.classSourceFile": "Шаблон исходника класса",
+  "configuration.classTestFile": "Шаблон теста класса",
+  "configuration.templateClassHeaderFile": "Шаблон заголовочного файла шаблонного класса",
+
+  "configuration.structHeaderFile": "Шаблон заголовочного файла структуры",
+  "configuration.structSourceFile": "Шаблон исходника структуры",
+  "configuration.structTestFile": "Шаблон теста структуры",
+
+  "configuration.patternErrorMessage": "Шаблон может содержать только буквы, цифры, '_', и ${var} выражения"
+}

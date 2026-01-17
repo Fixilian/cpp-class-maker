@@ -1,0 +1,385 @@
+{
+  "name": "cpp-class-maker",
+  "displayName": "C/C++ Class Maker",
+  "description": "Create C/C++ header, source and test files in one click — with automatic CMake and Git integration.",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.103.2"
+  },
+  "license": "GPL-3.0-only",
+  "categories": [
+    "Programming Languages",
+    "Other"
+  ],
+  "keywords": [
+    "C++",
+    "C",
+    "CMake",
+    "Git",
+    "generator",
+    "file",
+    "header",
+    "source",
+    "test",
+    "auto",
+    "automation"
+  ],
+  "extensionKind": ["workspace"],
+  "activationEvents": [],
+  "main": "./dist/extension.js",
+
+  "contributes": {
+    "commands": [
+      {
+        "command": "cppClassMaker.newClass",
+        "title": "%command.newClass%",
+        "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
+      },
+      {
+        "command": "cppClassMaker.newClassNoTest",
+        "title": "%command.newClassNoTest%",
+        "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
+      },
+      {
+        "command": "cppClassMaker.newHeader",
+        "title": "%command.newHeader%",
+        "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
+      },
+      {
+        "command": "cppClassMaker.newTemplateClass",
+        "title": "%command.newTemplateClass%",
+        "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
+      },
+      {
+        "command": "cppClassMaker.newTemplateClassNoTest",
+        "title": "%command.newTemplateClassNoTest%",
+        "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
+      },
+      {
+        "command": "cppClassMaker.newCStruct",
+        "title": "%command.newCStruct%",
+        "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
+      },
+      {
+        "command": "cppClassMaker.newCStructNoTest",
+        "title": "%command.newCStructNoTest%",
+        "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
+      },
+      {
+        "command": "cppClassMaker.newCHeader",
+        "title": "%command.newCHeader%",
+        "enablement": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
+      }
+    ],
+
+    "menus": {
+      "explorer/context": [
+        {
+          "group": "navigation",
+          "submenu": "cppClassMaker.make",
+          "when": "explorerViewletVisible && filesExplorerFocus && explorerResourceIsFolder"
+        }
+      ],
+      "cppClassMaker.make": [
+        {
+          "command": "cppClassMaker.newClass",
+          "group": "navigation"
+        },
+        {
+          "command": "cppClassMaker.newClassNoTest",
+          "group": "navigation"
+        },
+        {
+          "command": "cppClassMaker.newHeader",
+          "group": "navigation"
+        },
+        {
+          "command": "cppClassMaker.newTemplateClass",
+          "group": "navigation"
+        },
+        {
+          "command": "cppClassMaker.newTemplateClassNoTest",
+          "group": "navigation"
+        },
+        {
+          "command": "cppClassMaker.newCStruct",
+          "group": "2_c_files"
+        },
+        {
+          "command": "cppClassMaker.newCStructNoTest",
+          "group": "2_c_files"
+        },
+        {
+          "command": "cppClassMaker.newCHeader",
+          "group": "2_c_files"
+        }
+      ]
+    },
+
+    "submenus": [
+      {
+        "id": "cppClassMaker.make",
+        "label": "%submenu.label%"
+      }
+    ],
+
+    "configuration": [
+      {
+        "title": "C/C++ Class Maker",
+        "id": "cppClassMaker.main",
+        "properties": {
+          "cppClassMaker.main.AutoAddToBuildSystem": {
+            "order": 0,
+            "type": "boolean",
+            "default": true,
+            "description": "%configuration.AutoAddToBuildSystem%"
+          },
+          "cppClassMaker.main.AutoAddToSourceControlManager": {
+            "order": 1,
+            "type": "boolean",
+            "default": true,
+            "description": "%configuration.AutoAddToSourceControlManager%"
+          }
+        }
+      },
+      {
+        "title": "C++",
+        "id": "cppClassMaker.cpp",
+        "properties": {
+          "cppClassMaker.cpp.fileNameCase": {
+            "order": 0,
+            "type": "string",
+            "enum": ["Untouched", "PascalCase", "camelCase", "snake_case"],
+            "default": "Untouched",
+            "description": "%configuration.fileNameCase%"
+          },
+          "cppClassMaker.cpp.namespace": {
+            "order": 1,
+            "type": "string",
+            "default": "mynamespace",
+            "description": "%configuration.namespace%"
+          },
+          "cppClassMaker.cpp.headerFileExtension": {
+            "order": 2,
+            "type": "string",
+            "default": ".hpp",
+            "description": "%configuration.headerFileExtension%"
+          },
+          "cppClassMaker.cpp.sourceFileExtension": {
+            "order": 3,
+            "type": "string",
+            "default": ".cpp",
+            "description": "%configuration.sourceFileExtension%"
+          },
+          "cppClassMaker.cpp.includeDirectoryPath": {
+            "order": 4,
+            "type": "string",
+            "default": "include",
+            "description": "%configuration.includeDirectoryPath%"
+          },
+          "cppClassMaker.cpp.sourceDirectoryPath": {
+            "order": 5,
+            "type": "string",
+            "default": "src",
+            "description": "%configuration.sourceDirectoryPath%"
+          },
+          "cppClassMaker.cpp.testDirectoryPath": {
+            "order": 6,
+            "type": "string",
+            "default": "test",
+            "description": "%configuration.testDirectoryPath%"
+          },
+          "cppClassMaker.cpp.templates.includeGuard": {
+            "order": 7,
+            "type": "string",
+            "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
+            "patternErrorMessage": "%configuration.patternErrorMessage%",
+            "default": "${PATH}_${NAME_SCREAM}_H",
+            "description": "%configuration.includeGuard%"
+          },
+          "cppClassMaker.cpp.templates.headerFileName": {
+            "order": 8,
+            "type": "string",
+            "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
+            "patternErrorMessage": "%configuration.patternErrorMessage%",
+            "default": "${FILE_NAME}${HPP}",
+            "description": "%configuration.headerFileName%"
+          },
+          "cppClassMaker.cpp.templates.sourceFileName": {
+            "order": 9,
+            "type": "string",
+            "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
+            "patternErrorMessage": "%configuration.patternErrorMessage%",
+            "default": "${FILE_NAME}${CPP}",
+            "description": "%configuration.sourceFileName%"
+          },
+          "cppClassMaker.cpp.templates.testFileName": {
+            "order": 10,
+            "type": "string",
+            "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
+            "patternErrorMessage": "%configuration.patternErrorMessage%",
+            "default": "${FILE_NAME}Test${CPP}",
+            "description": "%configuration.testFileName%"
+          },
+          "cppClassMaker.cpp.templates.emptyHeaderFile": {
+            "type": "string",
+            "editPresentation": "multilineText",
+            "default": "#ifndef ${guard=INCLUDE_GUARD}\n#define ${guard}\n\nnamespace ${namespace=NAMESPACE} {\n\n\n} // namespace ${namespace}\n\n#endif // ${guard}\n",
+            "description": "%configuration.emptyHeaderFile%"
+          },
+          "cppClassMaker.cpp.templates.classHeaderFile": {
+            "type": "string",
+            "editPresentation": "multilineText",
+            "default": "#ifndef ${guard=INCLUDE_GUARD}\n#define ${guard}\n\nnamespace ${namespace=NAMESPACE} {\n\nclass ${class_name=NAME} {\npublic:\n    ${class_name}();\n    ~${class_name}();\n\nprivate:\n\n};\n\n} // namespace ${namespace}\n\n#endif // ${guard}\n",
+            "description": "%configuration.classHeaderFile%"
+          },
+          "cppClassMaker.cpp.templates.classSourceFile": {
+            "type": "string",
+            "editPresentation": "multilineText",
+            "default": "#include \"${HEADER}\"\n\nnamespace ${namespace=NAMESPACE} {\n\n\n\n} // namespace ${namespace}\n",
+            "description": "%configuration.classSourceFile%"
+          },
+          "cppClassMaker.cpp.templates.classTestFile": {
+            "type": "string",
+            "editPresentation": "multilineText",
+            "default": "#include <gmock/gmock.h>\n#include <gtest/gtest.h>\n\n#include <vector>\n#include <string>\n\n#include \"${HEADER_PATH}\"\n\nusing namespace std;\nusing namespace ${NAMESPACE};\n\nTEST(${NAME}Test, TestCase) {\n\n}\n",
+            "description": "%configuration.classTestFile%"
+          },
+          "cppClassMaker.cpp.templates.templateClassHeaderFile": {
+            "type": "string",
+            "editPresentation": "multilineText",
+            "default": "#ifndef ${guard=INCLUDE_GUARD}\n#define ${guard}\n\nnamespace ${namespace=NAMESPACE} {\n\ntemplate <typename T>\nclass ${class_name=NAME} {\npublic:\n    ${class_name}();\n    ~${class_name}();\n\nprivate:\n\n};\n\n} // namespace ${namespace}\n\n#endif // ${guard}\n",
+            "description": "%configuration.templateClassHeaderFile%"
+          }
+        }
+      },
+      {
+        "title": "C",
+        "id": "cppClassMaker.c",
+        "properties": {
+          "cppClassMaker.c.fileNameCase": {
+            "order": 0,
+            "type": "string",
+            "enum": ["Untouched", "PascalCase", "camelCase", "snake_case"],
+            "default": "Untouched",
+            "description": "%configuration.fileNameCase%"
+          },
+          "cppClassMaker.c.headerFileExtension": {
+            "order": 1,
+            "type": "string",
+            "default": ".h",
+            "description": "%configuration.headerFileExtension%"
+          },
+          "cppClassMaker.c.sourceFileExtension": {
+            "order": 2,
+            "type": "string",
+            "default": ".c",
+            "description": "%configuration.sourceFileExtension%"
+          },
+          "cppClassMaker.c.includeDirectoryPath": {
+            "order": 3,
+            "type": "string",
+            "default": "include",
+            "description": "%configuration.includeDirectoryPath%"
+          },
+          "cppClassMaker.c.sourceDirectoryPath": {
+            "order": 4,
+            "type": "string",
+            "default": "src",
+            "description": "%configuration.sourceDirectoryPath%"
+          },
+          "cppClassMaker.c.testDirectoryPath": {
+            "order": 5,
+            "type": "string",
+            "default": "test",
+            "description": "%configuration.testDirectoryPath%"
+          },
+          "cppClassMaker.c.templates.includeGuard": {
+            "order": 6,
+            "type": "string",
+            "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
+            "patternErrorMessage": "%configuration.patternErrorMessage%",
+            "default": "${PATH}_${NAME_SCREAM}_H",
+            "description": "%configuration.includeGuard%"
+          },
+          "cppClassMaker.c.templates.headerFileName": {
+            "order": 7,
+            "type": "string",
+            "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
+            "patternErrorMessage": "%configuration.patternErrorMessage%",
+            "default": "${FILE_NAME}${H}",
+            "description": "%configuration.headerFileName%"
+          },
+          "cppClassMaker.c.templates.sourceFileName": {
+            "order": 7,
+            "type": "string",
+            "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
+            "patternErrorMessage": "%configuration.patternErrorMessage%",
+            "default": "${FILE_NAME}${C}",
+            "description": "%configuration.sourceFileName%"
+          },
+          "cppClassMaker.c.templates.testFileName": {
+            "order": 8,
+            "type": "string",
+            "pattern": "^(?:\\$\\{[A-Za-z0-9_-]+\\}|[A-Za-z0-9_])+$",
+            "patternErrorMessage": "%configuration.patternErrorMessage%",
+            "default": "${FILE_NAME}_test${C}",
+            "description": "%configuration.testFileName%"
+          },
+          "cppClassMaker.c.templates.emptyHeaderFile": {
+            "type": "string",
+            "editPresentation": "multilineText",
+            "default": "#ifndef ${guard=INCLUDE_GUARD}\n#define ${guard}\n\n\n#endif // ${guard}",
+            "description": "%configuration.emptyHeaderFile%"
+          },
+          "cppClassMaker.c.templates.structHeaderFile": {
+            "type": "string",
+            "editPresentation": "multilineText",
+            "default": "#ifndef ${guard=INCLUDE_GUARD}\n#define ${guard}\n\ntypedef struct ${class_name=NAME} {\n\n} ${class_name};\n\n\n\n#endif // ${guard}",
+            "description": "%configuration.structHeaderFile%"
+          },
+          "cppClassMaker.c.templates.structSourceFile": {
+            "type": "string",
+            "editPresentation": "multilineText",
+            "default": "#include \"${C_HEADER}\"\n",
+            "description": "%configuration.structSourceFile%"
+          },
+          "cppClassMaker.c.templates.structTestFile": {
+            "type": "string",
+            "editPresentation": "multilineText",
+            "default": "#include \"${C_HEADER}\"\n",
+            "description": "%configuration.structTestFile%"
+          }
+        }
+      }
+    ]
+  },
+
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "npm run check-types && npm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "22.x",
+    "@types/vscode": "^1.104.0",
+    "@typescript-eslint/eslint-plugin": "^8.45.0",
+    "@typescript-eslint/parser": "^8.45.0",
+    "@vscode/test-cli": "^0.0.11",
+    "@vscode/test-electron": "^2.5.2",
+    "esbuild": "^0.25.10",
+    "eslint": "^9.36.0",
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.9.3"
+  }
+}

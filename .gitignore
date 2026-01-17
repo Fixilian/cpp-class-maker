@@ -1,0 +1,12 @@
+# Node.js
+node_modules/
+
+# Extension debug 
+debug/
+
+# Extension build 
+dist/
+out/
+
+# Extension test 
+.vscode-test/

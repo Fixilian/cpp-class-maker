@@ -1,0 +1,10 @@
+#ifndef BASE_STRING_STRING_BUILDER_H
+#define BASE_STRING_STRING_BUILDER_H
+
+typedef struct StringBuilder {
+
+} StringBuilder;
+
+
+
+#endif // BASE_STRING_STRING_BUILDER_H
